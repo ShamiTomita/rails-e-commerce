@@ -3,9 +3,9 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = [ "toggleable" ]
   connect(){
-    this.toggleableTarget.classList.toggle('hidden')
+    console.log("connected")
   }
   toggle() {
-       this.toggleableTarget.classList.toggle('hidden')
+       this.toggleableTarget.classList.toggle("hidden");
     }
 }
