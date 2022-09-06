@@ -12,9 +12,11 @@
   </head>
 
   <body>
-    <main class="container mx-auto mt-28 px-5 block">
+    <main class="container w-full block">
       <%= render 'shared/navbar' %>
-      <%= yield %>
+      <div class="display w-screen p-10">
+        <%= yield %>
+      </div>
       <%= render 'shared/carousel' %>
     </main>
   </body>

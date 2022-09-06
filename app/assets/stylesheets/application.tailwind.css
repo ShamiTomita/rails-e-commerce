@@ -8,6 +8,9 @@
   .btn-primary {
     @apply py-2 px-4 bg-blue-200;
   }
+  .display{
+    padding-top: 4rem;
+  }
   .menu-close {
     visibility: visible;
   }
