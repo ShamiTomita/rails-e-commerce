@@ -1,14 +1,12 @@
-<div class="w-full">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
+<h2>All Orders</h2>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Orders</h1>
-    <%= link_to 'New order', new_order_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-  </div>
-
-  <div id="orders" class="min-w-full">
-    <%= render @orders %>
-  </div>
-</div>
+<% @orders.each do |order| %>
+  <p>Name: <%= order.name %></p>
+  <p>Email: <%= order.email %></p>
+  <p>Line Items: </p>
+  <ul>
+    <% order.line_items.each do |item| %>
+    <li><%= item.quantity %> x <%= item.product.name %></li>
+    <% end %>
+  </ul>
+<% end %>
