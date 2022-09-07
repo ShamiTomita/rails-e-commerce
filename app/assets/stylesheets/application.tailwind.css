@@ -14,4 +14,12 @@
   .menu-close {
     visibility: visible;
   }
+  .add-to-cart{
+    z-index: 2;
+    position: flex;
+  }
+  .add-to-cart:hover{
+    font-style: italic;
+    background-color: light-blue;
+  }
 }
