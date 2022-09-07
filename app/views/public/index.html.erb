@@ -1,7 +1,9 @@
 <div>
-  <h1 class="font-bold text-4xl text-blue-500">Public#index</h1>
-  <p>Find me in app/views/public/index.html.erb</p>
+<% if current_user %>
 <h1 class="text-3xl font-bold underline">
-    Hello world!
+    Welcome Back!
 </h1>
+<%else%>
+<h1>Please Sign Up Or Login To Shop!</h1>
+<%end%>
 </div>
