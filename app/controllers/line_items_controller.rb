@@ -13,7 +13,7 @@ class LineItemsController < ApplicationController
       # Iterate the line_item's quantity by one
       @line_item.quantity += 1
     else
-      @line_item = LineItem.new
+      @line_item = LineItem.create!
       @line_item.cart = current_cart
       @line_item.product = chosen_product
     end
