@@ -28,10 +28,16 @@
           </div>
           <%end%>
           <div class="add-to-cart z-10">
+            <% if current_user %>
             <strong>
               <%=button_to "Add to cart",line_items_path(:product_id => product.id),
                  form: {data: {turbo_confirm: 'Add to Cart?'}}%>
             </strong>
+            <%else %>
+            <strong>
+              please sign in
+            </strong>
+            <%end%>
           </div>
         </div>
       <%end%>
