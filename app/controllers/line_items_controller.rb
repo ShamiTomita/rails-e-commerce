@@ -6,7 +6,6 @@ class LineItemsController < ApplicationController
 
     chosen_product = Product.find(params[:product_id])
     current_cart = @current_cart
-
     # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
     if current_cart.products.include?(chosen_product)
       # Find the line_item with the chosen_product
