@@ -2,11 +2,11 @@ include ActionView::Helpers::NumberHelper
 class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart
-  belongs_to :order
+  belongs_to :user
 
   def total_price
     tp = self.quantity * self.product.price
-    number_to_currency(tp)
+    tp.to_f
   end
 
 end
