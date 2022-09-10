@@ -13,9 +13,7 @@ class LineItemsController < ApplicationController
       # Iterate the line_item's quantity by one
       @line_item.quantity += 1
     else
-      @line_item = LineItem.create!
-      @line_item.cart = current_cart
-      @line_item.product = chosen_product
+      @line_item = LineItem.create(user_id:current_user.id, cart_id:current_cart, product_id:chosen_product.id, quantity:1)
     end
 
     # Save and redirect to cart show path
@@ -45,6 +43,6 @@ end
 
   private
     def line_item_params
-      params.require(:line_item).permit(:quantity,:product_id, :cart_id)
+      params.require(:line_item).permit(:quantity,:product_id, :cart_id, :use_id)
     end
 end
