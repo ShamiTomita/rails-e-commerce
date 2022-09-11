@@ -13,7 +13,7 @@ class LineItemsController < ApplicationController
       # Iterate the line_item's quantity by one
       @line_item.quantity += 1
     else
-      @line_item = LineItem.create(user_id:current_user.id, cart_id:current_cart, product_id:chosen_product.id, quantity:1)
+      @line_item = LineItem.create!(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
     end
 
     # Save and redirect to cart show path
@@ -23,13 +23,13 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    redirect_to cart_path(@current_cart)
+    redirect_to cart_path(@current_cart), status: :see_other
   end
   def add_quantity
   @line_item = LineItem.find(params[:id])
   @line_item.quantity += 1
   @line_item.save
-  redirect_to cart_path(@current_cart)
+  redirect_to cart_path(@current_cart), status: :see_other
 end
 
 def reduce_quantity
@@ -38,11 +38,11 @@ def reduce_quantity
     @line_item.quantity -= 1
   end
   @line_item.save
-  redirect_to cart_path(@current_cart)
+  redirect_to cart_path(@current_cart), status: :see_other
 end
 
   private
     def line_item_params
-      params.require(:line_item).permit(:quantity,:product_id, :cart_id, :use_id)
+      params.require(:line_item).permit(:quantity,:product_id, :cart_id, :user_id)
     end
 end
