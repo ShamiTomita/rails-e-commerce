@@ -1,6 +1,5 @@
 
 class LineItemsController < ApplicationController
-  before_action :set_line_item, only: %i[ show edit update destroy ]
   def create
     # Find associated product and current cart
 
@@ -23,7 +22,8 @@ class LineItemsController < ApplicationController
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-    redirect_to cart_path(@current_cart), status: :see_other
+
+    redirect_to cart_path(@current_cart.id)
   end
   def add_quantity
   @line_item = LineItem.find(params[:id])
