@@ -9,36 +9,42 @@
       </div>
       <div class="product-details">
         <div>
+          <strong>
           <h1><%=@product.name%></h1>
+        </strong>
           <p>
             <%= @product.description %>
           </p>
           <ul>
             <li>
-              Light:<%= @product.light %>
+              <strong>Light:</strong><%= @product.light %>
             </li>
             <li>
-              Water:<%= @product.watering %>
+              <strong>Water:</strong><%= @product.watering %>
             </li>
             <li>
-              Temp:><%= @product.temp %>
+              <strong>Temp:</strong>><%= @product.temp %>
             </li>
             <li>
               <%if !!@product.pet_friendly %>
-                <p>Pet Friendly 🐶🐱</p>
+                <strong><p>Pet Friendly 🐶🐱</p></strong>
               <%else%>
-                <p>Not Pet Friendly!!!</p>
+                <strong><p>Not Pet Friendly!!!</p></strong>
               <%end%>
             </li>
           </ul>
         </div>
-      <div>
+      <div class="admin-buttons">
         <% if !!current_user && current_user.role === "admin"%>
+        <div >
           <%= link_to 'Edit this product', edit_product_path(@product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-          <div class="inline-block ml-2">
+        </div>
+          <div >
             <%= button_to 'Destroy this product', product_path(@product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
           </div>
+          <div>
           <%= link_to 'Back to products', products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          </div>
           <% else %>
           <strong>
             <%= @product.price %>
