@@ -2,11 +2,17 @@
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-<% if current_user %>
-<h1 class="text-3xl font-bold underline">
-    Welcome Back!
-</h1>
-<%else%>
+  <% if current_user%>
+    <% if current_user.role === "admin" %>
+      <h1 class="text-3xl font-bold underline">
+        Welcome Admin!
+      </h1>
+    <%else%>
+      <h1 class="text-3xl font-bold underline">
+        Hello!
+      </h1>
+    <%end%>
+  <%else%>
 <h1>Please Sign Up Or Login To Shop!</h1>
-<%end%>
+  <%end%>
 </div>
