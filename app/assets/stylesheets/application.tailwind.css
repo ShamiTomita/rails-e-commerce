@@ -22,4 +22,15 @@
     font-style: italic;
     background-color: light-blue;
   }
+  .product-show{
+    display: flex;
+    flex-direction: row;
+  }
+  .product-image{
+    display: block;
+    width: 100%
+  }
+  .product-details{
+
+  }
 }
