@@ -3,13 +3,36 @@
     <% if notice.present? %>
       <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
     <% end %>
+    <div class="product-show">
+      <div class="product-image">
+        <div class=""><%image = @product.img%><%= image_tag (image) %></div>
+      </div>
+      <div class="product-details">
+        <div>
+          <%= @product.description %>
+          <%= @product.light %>
+          <%= @product.watering %>
+          <%= @product.temp %>
+          <%= @product.pet_friendly %>
+        </div>
+      <div>
+        <% if !!current_user && current_user.role === "admin"%>
+          <%= link_to 'Edit this product', edit_product_path(@product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <div class="inline-block ml-2">
+            <%= button_to 'Destroy this product', product_path(@product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+          </div>
+          <%= link_to 'Back to products', products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+          <% else %>
+          <strong>
+            <%= @product.price %>
+            <%=button_to "Add to cart",line_items_path(:product_id => @product.id),
+               form: {data: {turbo_confirm: 'Add to Cart?'}}%>
+          </strong>
+          <%end%>
+      </div>
 
-    <%= render @product %>
-
-    <%= link_to 'Edit this product', edit_product_path(@product), class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <div class="inline-block ml-2">
-      <%= button_to 'Destroy this product', product_path(@product), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+      </div>
     </div>
-    <%= link_to 'Back to products', products_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-  </div>
+
+    </div>
 </div>
