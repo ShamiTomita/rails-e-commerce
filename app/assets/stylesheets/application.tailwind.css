@@ -24,13 +24,19 @@
   }
   .product-show{
     display: flex;
+    padding: 1rem;
     flex-direction: row;
   }
   .product-image{
+    padding: 1rem;
     display: block;
     width: 100%
   }
   .product-details{
-
+    padding: 1rem;
+  }
+  .admin-buttons{
+    display: flex;
+    flex-direction: column;
   }
 }
