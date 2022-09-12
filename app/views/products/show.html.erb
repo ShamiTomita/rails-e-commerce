@@ -9,11 +9,28 @@
       </div>
       <div class="product-details">
         <div>
-          <%= @product.description %>
-          <%= @product.light %>
-          <%= @product.watering %>
-          <%= @product.temp %>
-          <%= @product.pet_friendly %>
+          <h1><%=@product.name%></h1>
+          <p>
+            <%= @product.description %>
+          </p>
+          <ul>
+            <li>
+              Light:<%= @product.light %>
+            </li>
+            <li>
+              Water:<%= @product.watering %>
+            </li>
+            <li>
+              Temp:><%= @product.temp %>
+            </li>
+            <li>
+              <%if !!@product.pet_friendly %>
+                <p>Pet Friendly 🐶🐱</p>
+              <%else%>
+                <p>Not Pet Friendly!!!</p>
+              <%end%>
+            </li>
+          </ul>
         </div>
       <div>
         <% if !!current_user && current_user.role === "admin"%>
