@@ -1,0 +1,16 @@
+<div class="cart-dropdown w-96">
+  <h1>Your Cart</h1>
+  <ul>
+    <%@current_cart.line_items.each do |item|%>
+    <%prod = item.product%>
+    <li>
+      <div class="w-20"><%image = prod.img%><%= image_tag (image) %></div>
+      <p><%=item.quantity%></p>
+      <p><%=item.total_price%></p>
+    </li>
+    <%end%>
+
+  </ul>
+
+
+</div>
