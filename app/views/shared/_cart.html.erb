@@ -1,16 +1,25 @@
-<div class="cart-dropdown w-96">
+<div class="cart-dropdown w-96 z-50">
   <h1>Your Cart</h1>
   <ul>
     <%@current_cart.line_items.each do |item|%>
     <%prod = item.product%>
     <li>
       <div class="w-20"><%image = prod.img%><%= image_tag (image) %></div>
-      <p><%=item.quantity%></p>
-      <p><%=item.total_price%></p>
+      <div data-controller="cart" class="cart-quantity">
+        <h3>item.name</h3>
+        <p>Quantity:</p> <p data-cart-target="quantity"><%=item.quantity%></p>
+        <div data-action="click->cart#add"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
+        <div data-action="click->cart#subtr click->cart#changeTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
+
+      <p data-price='<%=prod.price%>' data-cart-target="price"><%=item.total_price%></p>
+      </div>
     </li>
     <%end%>
 
   </ul>
-
-
+  <div data-controller="cart">
+    <strong>
+      <p data-action="click->cart#changeTotal" data-cart-target="price">Total: <%=@current_cart.sub_total%></p>
+    </strong>
+  </div>
 </div>
