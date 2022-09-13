@@ -29,7 +29,7 @@ class LineItemsController < ApplicationController
   @line_item = LineItem.find(params[:id])
   @line_item.quantity += 1
   @line_item.save
-  redirect_to cart_path(@current_cart), status: :see_other
+  
 end
 
 def reduce_quantity
@@ -38,7 +38,7 @@ def reduce_quantity
     @line_item.quantity -= 1
   end
   @line_item.save
-  redirect_to cart_path(@current_cart), status: :see_other
+  
 end
 
   private
