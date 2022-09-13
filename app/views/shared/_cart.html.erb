@@ -1,4 +1,4 @@
-<div class="cart-dropdown w-96 z-50">
+<div data-controller="order" class="cart-dropdown w-96 z-50">
   <h1>Your Cart</h1>
   <ul>
     <%@current_cart.line_items.each do |item|%>
@@ -8,18 +8,18 @@
       <div data-controller="cart" class="cart-quantity">
         <h3>item.name</h3>
         <p>Quantity:</p> <p data-cart-target="quantity"><%=item.quantity%></p>
-        <div data-action="click->cart#add"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
-        <div data-action="click->cart#subtr click->cart#changeTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
+        <div data-action="click->cart#add click->order#updateTotal"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
+        <div data-action="click->cart#subtr click->order#updateTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
 
-      <p data-price='<%=prod.price%>' data-cart-target="price"><%=item.total_price%></p>
+      <p data-price='<%=prod.price%>' data-cart-target="price" data-order-target="price"><%=item.total_price%></p>
       </div>
     </li>
     <%end%>
 
   </ul>
-  <div data-controller="cart">
+  <div>
     <strong>
-      <p data-action="click->cart#changeTotal" data-cart-target="price">Total: <%=@current_cart.sub_total%></p>
+      <p data-order-target="total_price">Your Total: <%=@current_cart.sub_total%></p>
     </strong>
   </div>
 </div>
