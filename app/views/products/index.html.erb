@@ -1,15 +1,15 @@
-<div class="">
+<div class="flex px-24 inset-x-0">
   <% if notice.present? %>
     <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
   <% end %>
-  <div id="products" class="min-w-full">
+  <div id="products" class="min-w-full z-0">
     <div class="flex justify-between items-center">
       <h1 class="font-bold text-4xl">Shop Plants!</h1>
     </div>
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @products.map do |product| %>
 
-        <div class="group relative -z-10">
+        <div class="group relative ">
         <%= link_to product_path(:id => product.id) do %>
           <div class="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
 
