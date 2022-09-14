@@ -1,17 +1,25 @@
-<div data-controller="order" class="cart-dropdown w-96 z-50">
+<div data-controller="order" class="cart-dropdown w-96 z-0 p-2 w-64">
   <h1>Your Cart</h1>
   <ul>
     <%@current_cart.line_items.each do |item|%>
     <%prod = item.product%>
-    <li>
-      <div class="w-20"><%image = prod.img%><%= image_tag (image) %></div>
-      <div data-controller="cart" class="cart-quantity">
-        <h3>item.name</h3>
-        <p>Quantity:</p> <p data-cart-target="quantity"><%=item.quantity%></p>
-        <div data-action="click->cart#add click->order#updateTotal"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
-        <div data-action="click->cart#subtr click->order#updateTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
+    <li class="p-2">
+      <div class="w-20 flex flex-row "><%image = prod.img%><%= image_tag (image) %></div>
+      <div data-controller="cart" class="cart-quantity flex flex-col w-36 justify-center">
 
-      <p data-price='<%=prod.price%>' data-cart-target="price" data-order-target="price"><%=item.total_price%></p>
+        <h3><%=prod.name%></h3>
+        <div class="flex flex-row w-5 ">
+          <div>Quantity:</div>
+          <div data-cart-target="quantity"><%=item.quantity%></div>
+        </div>
+        <div class="flex flex-row justify-center ">
+        <div class="cart-button px-2"data-action="click->cart#add click->order#updateTotal"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
+        <p>  </p>
+        <div class="cart-button px-2"data-action="click->cart#subtr click->order#updateTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
+        </div>
+        <div>
+        <p data-price='<%=prod.price%>' data-cart-target="price" data-order-target="price"><%=item.total_price%></p>
+        </div>
       </div>
     </li>
     <%end%>
