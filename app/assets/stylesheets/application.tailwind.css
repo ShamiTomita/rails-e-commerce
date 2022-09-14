@@ -39,4 +39,8 @@
     display: flex;
     flex-direction: column;
   }
+  .cart-button:hover {
+    background-color: green;
+    border-radius: 10rem;
+  }
 }
