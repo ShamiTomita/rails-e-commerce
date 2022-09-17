@@ -1,19 +1,20 @@
-<div data-controller="order" class="cart-dropdown w-96 z-0 p-2 w-64">
+<div data-controller="order" class="cart-dropdown z-0 p-2 flex flex-col justify-center ">
   <h1>Your Cart</h1>
   <ul>
     <%@current_cart.line_items.each do |item|%>
     <%prod = item.product%>
-    <li class="p-2">
-      <div class="w-20 flex flex-row "><%image = prod.img%><%= image_tag (image) %></div>
-      <div data-controller="cart" class="cart-quantity flex flex-col w-36 justify-center">
-
+    <li class="p-2 flex flex-col justify center">
+      <div class="w-24 flex flex-row "><%image = prod.img%><%= image_tag (image) %></div>
+      <div data-controller="cart" class="cart-quantity flex flex-col justify-center">
+        <strong>
         <h3><%=prod.name%></h3>
-        <div class="flex flex-row w-5 ">
+        </strong>
+        <div class="flex flex-row ">
 
         </div>
-        <div class="flex flex-row justify-center ">
+        <div class="flex flex-row">
         <div class="cart-button px-2"data-action="click->cart#subtr click->order#updateTotal"><%= button_to "-", line_item_reduce_path(:id => item), method: :post %></div>
-        
+
         <div data-cart-target="quantity"><%=item.quantity%></div>
         <div class="cart-button px-2"data-action="click->cart#add click->order#updateTotal"><%= button_to "+", line_item_add_path(:id => item), method: :post %></div>
 
@@ -31,5 +32,6 @@
     <strong>
       <p data-order-target="total_price">Your Total: <%=@current_cart.sub_total%></p>
     </strong>
+      <%= link_to "Your Cart", cart_path(@current_cart.id), class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
   </div>
 </div>
