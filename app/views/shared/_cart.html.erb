@@ -1,5 +1,7 @@
-<div data-controller="order" class="cart-dropdown z-0 p-2 flex flex-col justify-center ">
-  <h1>Your Cart</h1>
+<div data-controller="order" class="absolute z-999  p-2 flex flex-col">
+  <div class=" relative overflow-scroll">
+    <div class="">
+    <h1>Your Cart</h1>
   <ul>
     <%@current_cart.line_items.each do |item|%>
     <%prod = item.product%>
@@ -33,5 +35,8 @@
       <p data-order-target="total_price">Your Total: <%=@current_cart.sub_total%></p>
     </strong>
       <%= link_to "Your Cart", cart_path(@current_cart.id), class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
+  </div>
+  <div>
+
   </div>
 </div>
