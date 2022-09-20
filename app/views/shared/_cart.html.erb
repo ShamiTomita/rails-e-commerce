@@ -5,9 +5,9 @@
   <ul>
     <%@current_cart.line_items.each do |item|%>
     <%prod = item.product%>
-    <li class="p-2 flex flex-col justify center">
+    <li data-controller="cart" data-order-target="remove" class="p-2 flex flex-col justify center">
       <div class="w-24 flex flex-row "><%image = prod.img%><%= image_tag (image) %></div>
-      <div data-controller="cart" class="cart-quantity flex flex-col justify-center">
+      <div  class="cart-quantity flex flex-col justify-center">
         <strong>
         <h3><%=prod.name%></h3>
         </strong>
@@ -25,14 +25,18 @@
         <div>
         <p data-price='<%=prod.price%>' data-cart-target="price" data-order-target="price"><%=item.total_price%></p>
         </div>
+
       </div>
     </li>
+    <div class="cart-button">
+    <%= button_to "Remove item", line_item_path(item), method: :delete, data: {action: "click->order#updateTotal click->order#removeItem"} %>
+    </div>
     <%end%>
 
   </ul>
   <div>
     <strong>
-      <p data-order-target="total_price">Your Total: <%=@current_cart.sub_total%></p>
+      <p data-order-target="total_price" data-cart-target="total">Your Total: <%=@current_cart.sub_total%></p>
     </strong>
       <%= link_to "Your Cart", cart_path(@current_cart.id), class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
   </div>
