@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="cart"
 export default class extends Controller {
-  static targets = ["price", "quantity", "total"];
+  static targets = ["price", "quantity", "total", "remove"];
   connect() {
     console.log("hola mis amores are you ready to see my")
   }
@@ -32,5 +32,17 @@ export default class extends Controller {
 
   changeTotal(){
     console.log(this.priceTarget)
+  }
+
+  removeItem(){
+    console.log(this.removeTarget, this.priceTarget.innerHTML, this.totalTarget)
+    let price = parseInt(this.priceTarget.innerHTML)
+    let target = this.removeTarget
+    target.style.display = "none"
+    let emptyElement = document.createElement('div')
+    emptyElement.dataset.price = "0.0"
+    emptyElement.dataset.orderTarget = "price"
+    emptyElement.innerHTML = ":3"
+    target.parentNode.replaceChild(emptyElement, target);
   }
 }
