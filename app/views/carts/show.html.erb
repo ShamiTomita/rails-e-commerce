@@ -1,10 +1,13 @@
-<h2>Cart show</h2>
+<h2>Your Cart</h2>
 <ul>
   <% if @cart.line_items.empty? %>
   <h1>Your Cart is Empty</h1>
   <% else %>
   <% @cart.line_items.each do |line_item| %>
-    <li>Item: <%= line_item.product.name %>/ Price: <%= number_to_currency(line_item.product.price) %>/ Quantity: <%= line_item.quantity %>/ Total Price: <%= number_to_currency(line_item.total_price) %>
+    <li>Item: <%= line_item.product.name %>
+       Price: <%= number_to_currency(line_item.product.price) %>
+       Quantity: <%= line_item.quantity %>
+       Total Price: <%= number_to_currency(line_item.total_price) %>
     <ul>
       <li>
         <%= button_to "Add one", line_item_add_path(:id => line_item), method: :post %>
