@@ -35,13 +35,6 @@ class LineItemsController < ApplicationController
   @line_item = LineItem.find(params[:id])
   @line_item.quantity += 1
   @line_item.save
-  respond_to do |format|
-    render turbo_stream:turbo_stream.replace(
-      "#{dom_id(@line_item)}_quantity",
-         partial: 'line_items/line_item',
-         locals: { line_item: @line_item }
-       )
-     end
 
 
 end
@@ -64,7 +57,7 @@ def update
       format.html { redirect_to line_item(@line_item), notice: "Todo was successfully updated." }
       format.json { render :show, status: :ok, location: @todo }
     else
-      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
+      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}", locals: {line_item: @line_item})}
       format.html { render :new, status: :unprocessable_entity }
     end
   end
