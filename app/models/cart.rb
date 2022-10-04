@@ -2,6 +2,7 @@ class Cart < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :products, through: :line_items
 
+  after_update_commit {broadcast_replace_to "cart"}
 
   def sub_total
     sum = 0
