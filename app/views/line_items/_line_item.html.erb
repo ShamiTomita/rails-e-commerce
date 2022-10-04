@@ -1,13 +1,18 @@
 <li id="<%= "#{dom_id(line_item)}" %>">
   <%= turbo_frame_tag "cart_items" do %>
-
+<strong>
   <p class="my-5">
-
     <%= line_item.product.name %>
-
   </p>
+  </strong>
+  <div class="w-12">
+  <%image = line_item.product.img%><%= image_tag (image) %>
+  </div>
     <p>
     Quanitity: <%= line_item.quantity %>
+    <br>
+    <%= button_to "+", line_item_add_path(:id => line_item), method: :post %>
+    <%= button_to "-", line_item_reduce_path(:id => line_item), method: :post %>
     <br>
     Total: <%= line_item.total_price %>
   </p>
