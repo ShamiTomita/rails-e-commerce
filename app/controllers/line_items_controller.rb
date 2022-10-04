@@ -54,7 +54,7 @@ end
 def update
   respond_to do |format|
     if @line_item.update(todo_params)
-      format.html { redirect_to line_item(@line_item), notice: "Todo was successfully updated." }
+      format.html { redirect_to line_item(@line_item), notice: "LineItem was successfully updated." }
       format.json { render :show, status: :ok, location: @todo }
     else
       format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}", locals: {line_item: @line_item})}

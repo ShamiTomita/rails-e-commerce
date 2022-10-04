@@ -2,13 +2,15 @@
   <%= turbo_frame_tag "cart_items" do %>
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Product:</strong>
+
     <%= line_item.product.name %>
 
   </p>
     <p>
-    <%= line_item.quantity %>
-</p>
+    Quanitity: <%= line_item.quantity %>
+    <br>
+    Total: <%= line_item.total_price %>
+  </p>
 
 <%end%>
 </li>

@@ -2,10 +2,11 @@
 <div data-controller="order" class="absolute z-999  p-2 flex flex-col">
   <div class=" relative overflow-scroll">
     <div class="">
+      <%=turbo_stream_from "cart"%>
     <h1>Your Cart</h1>
 
   <ul>
-<%=turbo_stream_from "cart"%>
+
 <%= turbo_frame_tag "cart" do %>
     <%=render @current_cart.line_items%>
   </ul>
@@ -15,7 +16,10 @@
     <strong>
 
 
-      <p data-order-target="total_price" data-cart-target="total">Your Total: <%=@current_cart.sub_total%></p>
+
+<%= turbo_frame_tag "cart_total" do %>
+    <%= render "carts/cart_subtotal" %>
+<%end%>
 
     </strong>
       <%= link_to "Your Cart", cart_path(@current_cart.id), class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
