@@ -1,3 +1,6 @@
-<%= turbo_stream.append "line_item" do%>
+<%= turbo_stream.append "cart" do %>
   <%= render "line_item", line_item: @line_item%>
+<%end%>
+<%= turbo_stream.update "#{dom_id(@line_item)}" do%>
+  <%=render "line_item", line_item:@line_item %>
 <%end%>

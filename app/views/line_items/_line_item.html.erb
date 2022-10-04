@@ -1,14 +1,14 @@
-<li id="<%= "#{dom_id(line_item)}_item" %>">
-  <%= turbo_frame_tag "line_item" do %>
+<li id="<%= "#{dom_id(line_item)}" %>">
+  <%= turbo_frame_tag "cart_items" do %>
+
   <p class="my-5">
     <strong class="block font-medium mb-1">Product:</strong>
     <%= line_item.product.name %>
 
   </p>
-  <%= turbo_frame_tag "#{dom_id(line_item)}_quantity" do %>
+    <p>
     <%= line_item.quantity %>
-  <% end %>
-
+</p>
 
 <%end%>
 </li>
