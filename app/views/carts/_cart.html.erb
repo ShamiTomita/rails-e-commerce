@@ -1,7 +1,18 @@
-<div id="<%= dom_id cart %>">
-  <% if action_name != "show" %>
-    <%= link_to "Show this cart", cart, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this cart', edit_cart_path(cart), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+
+<div data-controller="order" class="absolute z-999  p-2 flex flex-col">
+  <div class=" relative overflow-scroll">
+    <div class="">
+    <h1>Your Cart</h1>
+  <ul>
+    <%=render @current_cart.line_items%>
+  </ul>
+  <div>
+    <strong>
+      <p data-order-target="total_price" data-cart-target="total">Your Total: <%=@current_cart.sub_total%></p>
+    </strong>
+      <%= link_to "Your Cart", cart_path(@current_cart.id), class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
+  </div>
+  <div>
+
+  </div>
 </div>

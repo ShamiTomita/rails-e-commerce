@@ -12,12 +12,18 @@ class LineItemsController < ApplicationController
       # Iterate the line_item's quantity by one
       @line_item.quantity += 1
     else
-      @line_item = LineItem.create!(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
+      @line_item = LineItem.new(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
     end
 
     # Save and redirect to cart show path
-    @line_item.save
-    redirect_to products_path
+    respond_to do |format|
+      if @line_item.save
+        format.turbo_stream
+      else
+        format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
+        format.html { render :new, status: :unprocessable_entity }
+      end
+    end
   end
   def destroy
     @line_item = LineItem.find(params[:id])
@@ -29,6 +35,14 @@ class LineItemsController < ApplicationController
   @line_item = LineItem.find(params[:id])
   @line_item.quantity += 1
   @line_item.save
+  respond_to do |format|
+    render turbo_stream:turbo_stream.replace(
+      "#{dom_id(@line_item)}_quantity",
+         partial: 'line_items/line_item',
+         locals: { line_item: @line_item }
+       )
+     end
+
 
 end
 
@@ -39,6 +53,21 @@ def reduce_quantity
   end
   @line_item.save
 
+end
+
+def edit
+end
+
+def update
+  respond_to do |format|
+    if @line_item.update(todo_params)
+      format.html { redirect_to line_item(@line_item), notice: "Todo was successfully updated." }
+      format.json { render :show, status: :ok, location: @todo }
+    else
+      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
+      format.html { render :new, status: :unprocessable_entity }
+    end
+  end
 end
 
   private

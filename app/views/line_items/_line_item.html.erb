@@ -1,22 +1,14 @@
-<div id="<%= dom_id line_item %>">
+<li id="<%= "#{dom_id(line_item)}_item" %>">
+  <%= turbo_frame_tag "line_item" do %>
   <p class="my-5">
     <strong class="block font-medium mb-1">Product:</strong>
-    <%= line_item.product_id %>
-  </p>
+    <%= line_item.product.name %>
 
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Cart:</strong>
-    <%= line_item.cart_id %>
   </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Order:</strong>
-    <%= line_item.order_id %>
-  </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this line item", line_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this line item', edit_line_item_path(line_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
+  <%= turbo_frame_tag "#{dom_id(line_item)}_quantity" do %>
+    <%= line_item.quantity %>
   <% end %>
-</div>
+
+
+<%end%>
+</li>
