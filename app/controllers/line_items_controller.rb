@@ -18,9 +18,14 @@ class LineItemsController < ApplicationController
     # Save and redirect to cart show path
     respond_to do |format|
       if @line_item.save
-        format.turbo_stream
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.append("cart", partial: "line_items/line_item", locals: {line_item: @line_item}),
+            turbo_stream.update('notice', "Added Item!"),
+            turbo_stream.update("cart_total", html:@current_cart.sub_total)
+          ]
+        end
       else
-        format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
         format.html { render :new, status: :unprocessable_entity }
       end
     end
