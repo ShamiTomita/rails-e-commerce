@@ -2,7 +2,6 @@
 class LineItemsController < ApplicationController
   def create
     # Find associated product and current cart
-
     chosen_product = Product.find(params[:product_id])
     current_cart = @current_cart
     # If cart already has this product then find the relevant line_item and iterate quantity otherwise create a new line_item for this product
@@ -10,11 +9,10 @@ class LineItemsController < ApplicationController
       # Find the line_item with the chosen_product
       @line_item = current_cart.line_items.find_by(:product_id => chosen_product)
       # Iterate the line_item's quantity by one
-      @line_item.quantity += 1
-    else
-      @line_item = LineItem.new(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
-    end
 
+      update(@line_item)
+    else
+    @line_item = LineItem.new(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
     # Save and redirect to cart show path
     respond_to do |format|
       if @line_item.save
@@ -29,6 +27,7 @@ class LineItemsController < ApplicationController
         format.html { render :new, status: :unprocessable_entity }
       end
     end
+  end
   end
   def destroy
     @line_item = LineItem.find(params[:id])
@@ -69,9 +68,16 @@ end
 def edit
 end
 
-def update
+def update(line_item)
+  line_item.quantity += 1
   respond_to do |format|
-    if @line_item.update(todo_params)
+    if line_item.update(quantity:line_item.quantity)
+      format.turbo_stream do
+        render turbo_stream: [ turbo_stream.update(line_item,
+                                                  partial: "line_items/line_item",
+                                                  locals: {line_item: line_item}),
+        turbo_stream.update("cart_total", html:@current_cart.sub_total)]
+      end
       format.html { redirect_to line_item(@line_item), notice: "LineItem was successfully updated." }
       format.json { render :show, status: :ok, location: @todo }
     else

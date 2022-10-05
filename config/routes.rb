@@ -7,7 +7,11 @@ Rails.application.routes.draw do
   post 'line_items' => "line_items#create"
   get 'line_items/:id' => "line_items#show", as: "line_item"
   delete 'line_items/:id' => "line_items#destroy"
-
+  resources :line_items do
+    member do
+      post :edit
+    end 
+  end
   resources :orders
   resources :products
   devise_for :users

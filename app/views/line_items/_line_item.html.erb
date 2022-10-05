@@ -1,5 +1,5 @@
-<li id="<%= "#{dom_id(line_item)}" %>">
-  <%= turbo_frame_tag "cart_items" do %>
+<li id="<%= dom_id line_item %>">
+
 <strong>
   <p class="my-5">
     <%= line_item.product.name %>
@@ -17,5 +17,5 @@
     Total: <%= line_item.total_price %>
   </p>
 
-<%end%>
+
 </li>
