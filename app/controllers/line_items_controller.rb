@@ -1,4 +1,3 @@
-
 class LineItemsController < ApplicationController
   def create
     # Find associated product and current cart
@@ -20,7 +19,7 @@ class LineItemsController < ApplicationController
           render turbo_stream: [
             turbo_stream.append("cart", partial: "line_items/line_item", locals: {line_item: @line_item}),
             turbo_stream.update('notice', "Added Item!"),
-            turbo_stream.update("cart_total", html:@current_cart.sub_total)
+            turbo_stream.update("cart_total", html: "Your Total: #{@current_cart.sub_total}")
           ]
         end
       else
@@ -29,11 +28,22 @@ class LineItemsController < ApplicationController
     end
   end
   end
+
+
   def destroy
     @line_item = LineItem.find(params[:id])
     @line_item.destroy
-
-    redirect_to products_path
+    respond_to do |format|
+      format.turbo_stream do
+        render turbo_stream: [
+          turbo_stream.remove(@line_item),
+          turbo_stream.update("cart_total",
+                              html: "Your Total: #{@current_cart.sub_total}")
+                            ]
+      end
+      format.html { redirect_to messages_url, notice: "Item was successfully destroyed." }
+      format.json { head :no_content }
+    end
   end
 
   def add_quantity
@@ -47,7 +57,7 @@ class LineItemsController < ApplicationController
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
             turbo_stream.update("cart_total",
-                                html:@current_cart.sub_total)
+                                html: "Your Total: #{@current_cart.sub_total}")
           ]
         end
       else
@@ -70,7 +80,7 @@ class LineItemsController < ApplicationController
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
             turbo_stream.update("cart_total",
-                                html:@current_cart.sub_total)
+                                html: "Your Total: #{@current_cart.sub_total}")
 
           ]
         end
@@ -81,8 +91,6 @@ class LineItemsController < ApplicationController
     end
   end
 
-def edit
-end
 
   def update(line_item)
     line_item.quantity += 1
@@ -105,6 +113,8 @@ end
       end
     end
   end
+
+
 
   private
     def line_item_params
