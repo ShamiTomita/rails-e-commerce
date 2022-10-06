@@ -5,25 +5,26 @@
     <%= line_item.product.name %>
   </p>
   </strong>
-  <div class="w-12 ">
+  <div class="w-24 ">
   <%image = line_item.product.img%><%= image_tag (image) %>
   </div>
-    Quanitity:
+    <h4>Quanitity:</h4>
     <div class="flex">
     <p class="flex flex-row">
       <div class="p-4">
-    <%= button_to "+", line_item_add_path(:id => line_item), method: :post %>
+        <%= button_to "-", line_item_reduce_path(:id => line_item), method: :post %>
+
       </div>
       <div class="p-4">
     <%= line_item.quantity %>
       </div>
       <div class="p-4">
-    <%= button_to "-", line_item_reduce_path(:id => line_item), method: :post %>
+    <%= button_to "+", line_item_add_path(:id => line_item), method: :post %>
     </div>
     </p>
     </div>
-    Item Total: <%= line_item.total_price %>
-
+    <h4>Item Total: <%= line_item.total_price %></h4>
+    <%= button_to 'Remove From Cart', line_item_path(line_item), method: :delete, data: {confirm: "Remove?"}%>
 
 </div>
 </li>
