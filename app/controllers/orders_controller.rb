@@ -1,4 +1,9 @@
 class OrdersController < ApplicationController
+
+  def checkout
+
+  end
+
   def index
     @orders = Order.all
   end
