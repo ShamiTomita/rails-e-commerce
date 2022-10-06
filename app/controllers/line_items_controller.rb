@@ -35,57 +35,76 @@ class LineItemsController < ApplicationController
 
     redirect_to products_path
   end
+
   def add_quantity
-  @line_item = LineItem.find(params[:id])
-  @line_item.quantity += 1
-  respond_to do |format|
-    if @line_item.save
-      format.turbo_stream
-    else
-      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
-      format.html { render :new, status: :unprocessable_entity }
+    @line_item = LineItem.find(params[:id])
+    @line_item.quantity += 1
+    respond_to do |format|
+      if @line_item.update(quantity: @line_item.quantity)
+        format.turbo_stream do
+          render turbo_stream:[
+            turbo_stream.update(@line_item,
+                                partial: "line_items/line_item",
+                                locals: {line_item: @line_item}),
+            turbo_stream.update("cart_total",
+                                html:@current_cart.sub_total)
+          ]
+        end
+      else
+        format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
-end
+  def reduce_quantity
+    @line_item = LineItem.find(params[:id])
+    if @line_item.quantity > 1
+      @line_item.quantity -= 1
+    end
+    respond_to do |format|
+      if @line_item.update(quantity: @line_item.quantity)
+        format.turbo_stream do
+          render turbo_stream:[
+            turbo_stream.update(@line_item,
+                                partial: "line_items/line_item",
+                                locals: {line_item: @line_item}),
+            turbo_stream.update("cart_total",
+                                html:@current_cart.sub_total)
 
-def reduce_quantity
-  @line_item = LineItem.find(params[:id])
-  if @line_item.quantity > 1
-    @line_item.quantity -= 1
-  end
-  respond_to do |format|
-    if @line_item.save
-      format.turbo_stream
-    else
-      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
-      format.html { render :new, status: :unprocessable_entity }
+          ]
+        end
+      else
+        format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
-
-end
 
 def edit
 end
 
-def update(line_item)
-  line_item.quantity += 1
-  respond_to do |format|
-    if line_item.update(quantity:line_item.quantity)
-      format.turbo_stream do
-        render turbo_stream: [ turbo_stream.update(line_item,
-                                                  partial: "line_items/line_item",
-                                                  locals: {line_item: line_item}),
-        turbo_stream.update("cart_total", html:@current_cart.sub_total)]
+  def update(line_item)
+    line_item.quantity += 1
+    respond_to do |format|
+      if line_item.update(quantity:line_item.quantity)
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update(line_item,
+                                partial: "line_items/line_item",
+                                locals: {line_item: line_item}),
+
+            turbo_stream.update("cart_total",
+                                html:@current_cart.sub_total)]
+        end
+        format.html { redirect_to line_item(@line_item), notice: "LineItem was successfully updated." }
+        format.json { render :show, status: :ok, location: @todo }
+      else
+        format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}", locals: {line_item: @line_item})}
+        format.html { render :new, status: :unprocessable_entity }
       end
-      format.html { redirect_to line_item(@line_item), notice: "LineItem was successfully updated." }
-      format.json { render :show, status: :ok, location: @todo }
-    else
-      format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}", locals: {line_item: @line_item})}
-      format.html { render :new, status: :unprocessable_entity }
     end
   end
-end
 
   private
     def line_item_params
