@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
 
   end
 
+  def checkout_items
+    
+  end
+
   def index
     @orders = Order.all
   end
