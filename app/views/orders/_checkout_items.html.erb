@@ -1,0 +1,13 @@
+<%= @current_cart.line_items.each_with_index do |item, index| %>
+  <div id=<%=index%>>
+    <h2><%=item.product.name%></h2>
+    <ul>
+      <li>
+        Quantity: <%=item.quantity%>
+      </li>
+      <li>
+        Price: <%=item.total_price%>
+      </li>
+    </ul>
+  </div>
+<%end%>
