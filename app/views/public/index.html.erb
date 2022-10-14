@@ -16,11 +16,14 @@
 <h1>Please Sign Up Or Login To Shop!</h1>
   <%end%>
   <div class="grid grid-cols-3 gap-4">
-    <%@products.each do |product|%>
-      <div id=<%=product.id%>>
-        <%image = product.img%><%= image_tag (image) %>
-        <%=product.name%>
-      </div>
-    <%end%>
+    <div data-controller="slideshow">
+      <button data-action="slideshow#previous"> ← </button>
+      <button data-action="slideshow#next"> → </button>
+
+      <div data-slideshow-target="slide">🐵</div>
+      <div data-slideshow-target="slide">🙈</div>
+      <div data-slideshow-target="slide">🙉</div>
+      <div data-slideshow-target="slide">🙊</div>
+    </div>
   </div>
 </div>
