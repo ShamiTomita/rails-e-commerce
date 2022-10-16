@@ -6,10 +6,16 @@ export default class extends Controller {
 
   next() {
     this.indexValue++
+    if(this.indexValue > 3){
+      this.indexValue = 0
+    }
   }
 
   previous() {
     this.indexValue--
+    if(this.indexValue < 0){
+      this.indexValue = 3
+    }
   }
 
   indexValueChanged() {
