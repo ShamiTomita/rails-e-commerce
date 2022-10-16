@@ -17,13 +17,15 @@
   <%end%>
   <div class="grid grid-cols-3 gap-4">
     <div data-controller="slideshow">
-      <button data-action="slideshow#previous"> ← </button>
-      <button data-action="slideshow#next"> → </button>
+
       <% @array.each do |item| %>
       <div data-slideshow-target="slide">
+        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image) %></div>
         <%=item.name%>
       </div>
       <%end%>
+      <button data-action="slideshow#previous"> ← </button>
+      <button data-action="slideshow#next"> → </button>
     </div>
   </div>
 </div>
