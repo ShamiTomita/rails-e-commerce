@@ -19,11 +19,11 @@
     <div data-controller="slideshow">
       <button data-action="slideshow#previous"> ← </button>
       <button data-action="slideshow#next"> → </button>
-
-      <div data-slideshow-target="slide">🐵</div>
-      <div data-slideshow-target="slide">🙈</div>
-      <div data-slideshow-target="slide">🙉</div>
-      <div data-slideshow-target="slide">🙊</div>
+      <% @array.each do |item| %>
+      <div data-slideshow-target="slide">
+        <%=item.name%>
+      </div>
+      <%end%>
     </div>
   </div>
 </div>
