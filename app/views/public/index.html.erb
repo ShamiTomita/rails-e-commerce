@@ -20,7 +20,7 @@
 
       <% @array.each do |item| %>
       <div data-slideshow-target="slide">
-        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image) %></div>
+        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover lg:w-96 lg:h-96" %></div>
         <%=item.name%>
       </div>
       <%end%>
