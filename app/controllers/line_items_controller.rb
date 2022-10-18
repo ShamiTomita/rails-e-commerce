@@ -32,6 +32,8 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
+    @order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
+    @order_item.destroy
     @line_item.destroy
     respond_to do |format|
       format.turbo_stream do
