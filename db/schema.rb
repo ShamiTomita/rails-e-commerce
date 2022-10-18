@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_204151) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_18_175228) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -28,12 +28,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_204151) do
     t.integer "quantity", default: 1
   end
 
+  create_table "order_items", force: :cascade do |t|
+    t.integer "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "quantity"
+    t.integer "product_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.integer "user_id"
     t.decimal "total"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "payment_method"
+    t.integer "status", default: 0
+    t.boolean "completed", default: false
+    t.string "shipping_address"
   end
 
   create_table "products", force: :cascade do |t|
@@ -58,6 +69,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_204151) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
+    t.string "name"
+    t.string "address"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
