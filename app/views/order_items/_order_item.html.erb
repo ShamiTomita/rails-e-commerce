@@ -1,7 +1,9 @@
 <div id="<%= dom_id order_item %>">
   <p class="my-5">
     <strong class="block font-medium mb-1">Line item:</strong>
-    <%= order_item.line_item_id %>
+    <%= order_item.product.name %>
+    <%= order_item.quantity %>
+    <%= order_item.total_price%>
   </p>
 
   <p class="my-5">

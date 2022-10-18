@@ -1,7 +1,7 @@
 class OrdersController < ApplicationController
 
   def checkout
-
+    @order = Order.find(params[:id])
   end
 
   def checkout_item
@@ -31,9 +31,10 @@ class OrdersController < ApplicationController
             )
         end
       end
-      redirect_to checkout_path(@order)
+      redirect_to checkout_path(@order.id)
     else
-      redirect_to checkout_path(@current_cart.order)
+      @order = @current_cart.order
+      redirect_to checkout_path(@order.id)
     end
   end
 
