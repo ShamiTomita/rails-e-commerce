@@ -1,21 +1,23 @@
-<div>
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
-  <% end %>
-  <% if current_user%>
-    <% if current_user.role === "admin" %>
-      <h1 class="text-3xl font-bold underline">
-        Welcome Admin!
-      </h1>
-    <%else%>
-      <h1 class="text-3xl font-bold underline">
-        Hello!
-      </h1>
-    <%end%>
+<div class="flex flex-col text-center m-5">
+<% if notice.present? %>
+  <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+<% end %>
+<% if current_user%>
+  <% if current_user.role === "admin" %>
+    <h1 class="text-3xl font-bold underline">
+      Welcome Admin!
+    </h1>
   <%else%>
-<h1>Please Sign Up Or Login To Shop!</h1>
+    <h1 class="text-3xl font-bold underline">
+      Plants R Us!
+    </h1>
   <%end%>
-  <div class="grid grid-cols-3 gap-4">
+<%else%>
+
+<%end%>
+<div class="flex justify-center flex-row m-5">
+  <div></div>
+  <div class="">
     <div data-controller="slideshow">
 
       <% @array.each do |item| %>
@@ -28,4 +30,6 @@
       <button data-action="slideshow#next"> → </button>
     </div>
   </div>
+  <div></div>
+</div>
 </div>
