@@ -50,14 +50,19 @@ class LineItemsController < ApplicationController
 
   def add_quantity
     @line_item = LineItem.find(params[:id])
+    @order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
     @line_item.quantity += 1
     respond_to do |format|
       if @line_item.update(quantity: @line_item.quantity)
+        @order_item.update(quantity: @line_item.quantity)
         format.turbo_stream do
           render turbo_stream:[
             turbo_stream.update(@line_item,
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
+            turbo_stream.update(@order_item,
+                                partial: "order_items/order_item",
+                                locals: {order_item: @order_item}),
             turbo_stream.update("cart_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
           ]
@@ -71,16 +76,21 @@ class LineItemsController < ApplicationController
 
   def reduce_quantity
     @line_item = LineItem.find(params[:id])
+    @order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
     if @line_item.quantity > 1
       @line_item.quantity -= 1
     end
     respond_to do |format|
       if @line_item.update(quantity: @line_item.quantity)
+        @order_item.update(quantity: @line_item.quantity)
         format.turbo_stream do
           render turbo_stream:[
             turbo_stream.update(@line_item,
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
+            turbo_stream.update(@order_item,
+                                partial: "order_items/order_item",
+                                locals: {order_item: @order_item}),
             turbo_stream.update("cart_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
 
@@ -96,13 +106,19 @@ class LineItemsController < ApplicationController
 
   def update(line_item)
     line_item.quantity += 1
+    @order_item = @current_cart.order.order_items.find_by(product_id: line_item.product.id)
+
     respond_to do |format|
       if line_item.update(quantity:line_item.quantity)
+         @order_item.update(quantity: @line_item.quantity)
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.update(line_item,
                                 partial: "line_items/line_item",
                                 locals: {line_item: line_item}),
+            turbo_stream.update(@order_item,
+                                partial: "order_items/order_item",
+                                locals: {order_item: @order_item}),
 
             turbo_stream.update("cart_total",
                                 html:@current_cart.sub_total)]

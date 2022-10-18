@@ -3,6 +3,8 @@
     <strong class="block font-medium mb-1">Line item:</strong>
     <%= order_item.product.name %>
     <%= order_item.quantity %>
+    <%= button_to "+", line_item_add_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
+    <%= button_to "-", line_item_reduce_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
     <%= order_item.total_price%>
   </p>
 
