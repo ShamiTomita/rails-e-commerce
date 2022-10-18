@@ -1,18 +1,8 @@
 <h1>Your Order</h1>
-<div>
-<ol>
-<% @current_cart.line_items.each do |item| %>
-  <li>
-    <%= item.product.name %>
-  </li>
-    <% end %>
-</ol>
-
+<div id="order_items">
 
 </div>
 <br>
 <strong>
-<span id="checkout_total">
-    Your Total: <%=@current_cart.sub_total%>
-</span>
+
 </strong>

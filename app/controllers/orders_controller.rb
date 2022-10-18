@@ -4,8 +4,8 @@ class OrdersController < ApplicationController
 
   end
 
-  def checkout_items
-    
+  def checkout_item
+    @item = LineItem.find(params[:id])
   end
 
   def index
@@ -21,19 +21,24 @@ class OrdersController < ApplicationController
   end
 
   def create
-  @order = Order.new(order_params)
-  @current_cart.line_items.each do |item|
-    @order.line_items << item
-    item.cart_id = nil
+    if !@current_cart.order
+      @order = Order.create(user_id: current_user.id, cart_id: @current_cart.id)
+      if @order.save
+        @current_cart.line_items.each do |item|
+          @order.order_items.create!(
+            product_id: item.product_id,
+            quantity: item.quantity
+            )
+        end
+      end
+      redirect_to checkout_path(@order)
+    else
+      redirect_to checkout_path(@current_cart.order)
+    end
   end
-  @order.save
-  Cart.destroy(session[:cart_id])
-  session[:cart_id] = nil
-  redirect_to root_path
-end
 
 private
   def order_params
-    params.require(:order).permit(:name, :email, :address, :pay_method)
+
   end
 end
