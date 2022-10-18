@@ -4,6 +4,11 @@ export default class extends Controller {
   static targets = [ "slide" ]
   static values = { index: Number }
 
+  connect(){
+    setInterval(() => this.next(), 4000)
+  }
+
+
   next() {
     this.indexValue++
     if(this.indexValue > 3){
