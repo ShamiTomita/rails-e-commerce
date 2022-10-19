@@ -1,0 +1,9 @@
+<h1>Shipping</h1>
+<div>
+  <h1>Your Order</h1>
+  <%= render 'orders/order'%>
+</div>
+<div>
+  <h1>Shipping Information</h1>
+  <%= render 'orders/checkout_form', :object => {:order => @order, :user => @user}%>
+</div>
