@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/profile', to: "users#profile", as: "profile"
   get '/checkout/:id', to: "orders#checkout", as: "checkout"
   get "/checkout/:id/shipping", to: "orders#shipping", as: "shipping"
+  get "/checkout/:id/confirm", to:"orders#confirm", as: "confirm"
   get '/items', to: "orders#checkout_items"
   post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
   post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
@@ -18,7 +19,7 @@ Rails.application.routes.draw do
   end
   resources :orders
   resources :products
-  resources :users
+  resources :users, only: [:edit, :update]
   devise_for :users
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
