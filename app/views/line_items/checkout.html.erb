@@ -1,0 +1,12 @@
+<h1>Your Order</h1>
+<div>
+
+<%= render 'carts/cart' %>
+
+</div>
+<br>
+<strong>
+<span id="cart_total">
+    Your Total: <%=@current_cart.sub_total%>
+</span>
+</strong>

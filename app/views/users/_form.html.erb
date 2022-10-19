@@ -1,0 +1,9 @@
+<%= form_for(user) do |f|%>
+    <%= f.text_field :name, placeholder:"Name", class:"textField"%>
+    <br>
+    <%= f.text_field :email, placeholder:"Email", class:"textField"%>
+    <br>
+    <%= f.text_field :address, placeholder:"Address", class:"textField"%>
+    <%= f.submit %>
+
+<% end %>
