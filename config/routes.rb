@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   delete 'carts/:id' => "carts#destroy"
   get '/profile', to: "users#profile", as: "profile"
   get '/checkout/:id', to: "orders#checkout", as: "checkout"
+  get "/checkout/:id/shipping", to: "orders#shipping", as: "shipping"
   get '/items', to: "orders#checkout_items"
   post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
   post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
