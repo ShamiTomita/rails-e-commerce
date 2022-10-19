@@ -28,7 +28,7 @@ class OrdersController < ApplicationController
   def create
     #check if an order for this cart has been created
     if !@current_cart.order
-      @order = Order.create(user_id: current_user.id, cart_id: @current_cart.id)
+      @order = Order.create!(user_id: current_user.id, cart_id: @current_cart.id)
     else
       @order = @current_cart.order
     end
@@ -48,8 +48,20 @@ class OrdersController < ApplicationController
     end
   end
 
+  def update
+    @order = Order.find(params[:id])
+    @order.update(order_params)
+    if @order.save
+      redirect_to confirm_path(@order.id)
+    end
+  end
+
+  def confrim
+    @order = Order.find(params[:id])
+  end
+
 private
   def order_params
-
+    params.require(:order).permit(:name, :shipping_address, :email, :payment_method, :user_id, :cart_id, :total)
   end
 end
