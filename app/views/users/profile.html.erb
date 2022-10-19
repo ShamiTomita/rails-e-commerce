@@ -1,2 +1,9 @@
 <h1>User Profile!</h1>
-<%=current_user.email%>
+<br>
+<strong>Name: </strong><%=current_user.name%>
+<br>
+<strong>Email: </strong><%=current_user.email%>
+<br>
+<strong>Address: </strong><%=current_user.address%>
+<br>
+<%= link_to "Edit Profile", edit_user_path(current_user)%>
