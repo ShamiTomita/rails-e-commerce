@@ -4,6 +4,10 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def confrim
+    @order = Order.find(params[:id])
+  end
+
   def shipping
     @user = @current_user
     @order = Order.find(params[:id])
@@ -44,24 +48,19 @@ class OrdersController < ApplicationController
               )
           end
         end
-      redirect_to checkout_path(@order.id)
+      redirect_to checkout_path(@order)
     end
   end
 
   def update
     @order = Order.find(params[:id])
     @order.update(order_params)
-    if @order.save
-      redirect_to confirm_path(@order.id)
-    end
+    redirect_to order_url(@order)
   end
 
-  def confrim
-    @order = Order.find(params[:id])
-  end
 
 private
   def order_params
-    params.require(:order).permit(:name, :shipping_address, :email, :payment_method, :user_id, :cart_id, :total)
+    params.require(:order).permit(:name, :shipping_address, :email, :payment_method, :total)
   end
 end
