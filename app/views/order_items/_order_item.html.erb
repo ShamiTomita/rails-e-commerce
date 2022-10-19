@@ -1,21 +1,24 @@
 <div id="<%= dom_id order_item %>">
   <p class="my-5">
-    <strong class="block font-medium mb-1">Line item:</strong>
-    <%= order_item.product.name %>
-    <%= order_item.quantity %>
-    <%= button_to "+", line_item_add_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
-    <%= button_to "-", line_item_reduce_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
-    <%= order_item.total_price%>
+    <strong class="block font-medium mb-1"><%= order_item.product.name %></strong>
   </p>
+  <div class="w-24 ">
+  <%image = order_item.product.img%><%= image_tag (image) %>
+  </div>
+  <p>
+    <strong class="block font-medium mb-1">Quantity:</strong>
+  </p>
+  <div class="flex flex-row">
+    <%= button_to "-", line_item_reduce_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
+
+    <%= order_item.quantity %>
+
+    <%= button_to "+", line_item_add_path(:id => @current_cart.line_items.find_by(product_id: order_item.product.id).id), method: :post %>
+  </div>
+
 
   <p class="my-5">
-    <strong class="block font-medium mb-1">Order:</strong>
-    <%= order_item.order_id %>
+    <strong class="block font-medium mb-1">Price:</strong>
+    <%= order_item.total_price%>
   </p>
-
-  <% if action_name != "show" %>
-    <%= link_to "Show this order item", order_item, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to 'Edit this order item', edit_order_item_path(order_item), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
 </div>

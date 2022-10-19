@@ -1,4 +1,12 @@
 <%= form_for(@order) do |f| %>
+    <%= f.text_field :name, placeholder:"Name", class:"textField"%>
+    <br>
+    <%= f.text_field :email, placeholder:"Email", class:"input", value:current_user.email%>
+    <br>
+    <%= f.text_field :shipping_address, placeholder:"Shipping", class:"input"%>
+    <br>
+    <%= f.text_field :payment_method, placeholder:"Payment Method", class:"input"%>
+    <br>
     <%= f.submit %>
 
 <% end %>

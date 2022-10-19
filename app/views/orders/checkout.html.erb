@@ -1,9 +1,11 @@
-<h1>Your Order</h1>
+<h1>Your Current Order</h1>
 <div id="order_items">
 <%= render @order.order_items%>
-
 </div>
 <br>
-<strong>
-
+<strong id="order_total">
+  Total Price: <%=@current_cart.sub_total%>
 </strong>
+<div>
+<%= link_to "Continue to Shipping", shipping_path(@order)%>
+</div>
