@@ -64,6 +64,8 @@ class LineItemsController < ApplicationController
                                 partial: "order_items/order_item",
                                 locals: {order_item: @order_item}),
             turbo_stream.update("cart_total",
+                                html: "Your Total: #{@current_cart.sub_total}"),
+            turbo_stream.update("order_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
           ]
         end
@@ -92,6 +94,8 @@ class LineItemsController < ApplicationController
                                 partial: "order_items/order_item",
                                 locals: {order_item: @order_item}),
             turbo_stream.update("cart_total",
+                                html: "Your Total: #{@current_cart.sub_total}"),
+            turbo_stream.update("order_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
 
           ]
@@ -119,9 +123,10 @@ class LineItemsController < ApplicationController
             turbo_stream.update(@order_item,
                                 partial: "order_items/order_item",
                                 locals: {order_item: @order_item}),
-
             turbo_stream.update("cart_total",
-                                html:@current_cart.sub_total)]
+                                html: "Your Total: #{@current_cart.sub_total}"),
+            turbo_stream.update("order_total",
+                                html: "Your Total: #{@current_cart.sub_total}")]
         end
         format.html { redirect_to line_item(@line_item), notice: "LineItem was successfully updated." }
         format.json { render :show, status: :ok, location: @todo }

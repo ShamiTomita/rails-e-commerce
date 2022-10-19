@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
   def profile
   end
-end 
+
+  def edit
+  end
+
+
+end

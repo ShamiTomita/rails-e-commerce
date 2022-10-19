@@ -4,6 +4,11 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def shipping
+    @user = @current_user
+    @order = Order.find(params[:id])
+  end
+
   def checkout_item
     @item = LineItem.find(params[:id])
   end
