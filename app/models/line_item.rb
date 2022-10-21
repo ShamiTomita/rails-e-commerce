@@ -3,7 +3,7 @@ class LineItem < ApplicationRecord
   belongs_to :product
   belongs_to :cart
   belongs_to :user
-
+  has_one :order_item
   def total_price
     tp = self.quantity * self.product.price
     tp.to_f

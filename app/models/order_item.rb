@@ -1,7 +1,8 @@
 class OrderItem < ApplicationRecord
   belongs_to :product
   belongs_to :order
-  validates :product_id, uniqueness: true
+  belongs_to :line_item
+  
   def total_price
     tp = self.quantity * self.product.price
     tp.to_f

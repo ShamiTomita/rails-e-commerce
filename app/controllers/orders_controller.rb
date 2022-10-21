@@ -12,6 +12,10 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
     @order.status = 1
     @order.save
+    @current_cart.line_items.each do |item|
+      item.destroy
+    end
+    @current_cart.destroy
     redirect_to order_url(@order)
   end
 
@@ -50,6 +54,7 @@ class OrdersController < ApplicationController
             order_item.update(quantity: item.quantity)
           else
             @order.order_items.create!(
+              line_item_id: item.id,
               product_id: item.product_id,
               quantity: item.quantity
               )
