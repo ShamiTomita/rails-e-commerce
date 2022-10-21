@@ -5,5 +5,13 @@
 <strong>Email: </strong><%=current_user.email%>
 <br>
 <strong>Address: </strong><%=current_user.address%>
+
+<p>
+  <% current_user.orders.each do |order| %>
+  <% if order.status != 0 %>
+  <%= order %>
+  <%end%>
+  <%end%>
+</p>
 <br>
 <%= link_to "Edit Profile", edit_user_path(current_user)%>
