@@ -7,4 +7,11 @@ class PublicController < ApplicationController
       @array.push(prod)
     end
   end
+
+  def about
+  end
+
+  def contact
+    redirect_to new_contact_path
+  end
 end
