@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
   get '/profile', to: "users#profile", as: "profile"
+  get '/about', to:"public#about", as: "about"
+  get '/contact', to:"public#contact", as:"contact"
   get '/checkout/:id', to: "orders#checkout", as: "checkout"
   get '/shipping/:id', to: "orders#shipping", as: "shipping"
   get '/confirm/:id', to: "orders#confirm", as: "confirm"
@@ -20,8 +22,10 @@ Rails.application.routes.draw do
   end
   resources :orders
   resources :products
+  resources :contacts
   resources :users, only: [:edit, :update]
   devise_for :users
+
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
