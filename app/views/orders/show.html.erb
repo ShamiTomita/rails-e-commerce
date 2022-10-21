@@ -1,3 +1,16 @@
+<% if @order.status = 1 %>
+<h1>CONFRIMATION OF YOUR ORDER</h1>
 <div class="">
 <%= render "orders/confirm", :order=>@order%>
 </div>
+
+<%else%>
+<h1>Pending Order </h1>
+<div class="">
+<%= render "orders/confirm", :order=>@order%>
+</div>
+
+<div>
+  <%= button_to "Finalize Order", ordered_path%>
+</div>
+<%end%>
