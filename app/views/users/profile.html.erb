@@ -8,9 +8,20 @@
 
 <p>
   <% current_user.orders.each do |order| %>
-  <% if order.status != 0 %>
-  <%= order %>
-  <%end%>
+    <% if order.status != 0 %>
+      <div class="flex flex-col">
+          <h3>Order #<%= order.id %></h3>
+          <% order.order_items.each do |item| %>
+            <ol>
+              <li>Item: <%= item.product.name %></li>
+              <li>Quantity:<%= item.quantity %></li>
+            </ol>
+          <%end%>
+          <p>Order Total: <%=order.total%></p>
+          <p>Status: <%=order.status%></p>
+          <br>
+      </div>
+    <%end%>
   <%end%>
 </p>
 <br>
