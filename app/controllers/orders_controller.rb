@@ -8,6 +8,13 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
   end
 
+  def finalized
+    @order = Order.find(params[:id])
+    @order.status = 1
+    @order.save
+    redirect_to order_url(@order)
+  end
+
   def shipping
     @user = @current_user
     @order = Order.find(params[:id])
