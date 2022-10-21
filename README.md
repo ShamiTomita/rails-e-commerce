@@ -22,3 +22,6 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+Shoutout to mklickman (https://gist.github.com/mklickman/1790914) for his sample contact form
