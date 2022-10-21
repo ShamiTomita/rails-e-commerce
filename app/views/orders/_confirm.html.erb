@@ -1,4 +1,3 @@
-<h1>CONFRIMATION OF YOUR ORDER</h1>
 <h2>Your Order</h2>
 <% @order.order_items.each do |item| %>
 <%= item.product.name %>
@@ -7,6 +6,7 @@
 <%= @order.name%>
 <%= @order.email %>
 <%= @order.shipping_address %>
+<%= @order.status%>
 <% if !!@order.payment_method%>
 <p>Payment Confirmed</p>
 <%end%>
