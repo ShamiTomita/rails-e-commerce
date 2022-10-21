@@ -1,11 +1,11 @@
 <%= form_for(@order) do |f| %>
-    <%= f.text_field :name, placeholder:"Name", class:"textField", value:current_user.name%>
+    <%= f.text_field :name, placeholder:"Name", class:"textField", value:current_user.name, required: true%>
     <br>
-    <%= f.text_field :email, placeholder:"Email", class:"input", value:current_user.email%>
+    <%= f.text_field :email, placeholder:"Email", class:"input", value:current_user.email, required: true%>
     <br>
-    <%= f.text_field :shipping_address, placeholder:"Shipping", class:"input", value:current_user.address%>
+    <%= f.text_field :shipping_address, placeholder:"Shipping", class:"input", value:current_user.address, required: true%>
     <br>
-    <%= f.text_field :payment_method, placeholder:"Payment Method", class:"input"%>
+    <%= f.text_field :payment_method, placeholder:"Payment Method", class:"input", required: true%>
     <br>
     <%= f.hidden_field :total, :value => @current_cart.sub_total %>
     <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
