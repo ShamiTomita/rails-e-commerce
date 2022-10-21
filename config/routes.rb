@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get '/profile', to: "users#profile", as: "profile"
   get '/checkout/:id', to: "orders#checkout", as: "checkout"
   get '/shipping/:id', to: "orders#shipping", as: "shipping"
-  post '/confirm/:id', to: "orders#confirm", as: "confirm"
+  get '/confirm/:id', to: "orders#confirm", as: "confirm"
   post '/finalized/:id', to: "orders#finalized", as: "ordered"
   get '/items', to: "orders#checkout_items"
   post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
