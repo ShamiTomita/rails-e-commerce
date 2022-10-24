@@ -1,13 +1,23 @@
 <h1>Your Current Order</h1>
-<div id="order_items">
-<%= render @order.order_items%>
-</div>
-<br>
-<strong id="order_total">
-  Total Price: <%=@current_cart.sub_total%>
-</strong>
-<div>
-  <%if !@order.order_items.empty? %>
-<%= link_to "Continue to Shipping", shipping_path(@order)%>
-<%end%>
+<div class="w-screen h-96 flex justify-center">
+  <div class="">
+    <div class="flex flex-row">
+      <div class="mr-64" id="order_items">
+        <h1>Order Information</h1>
+        <div class="h-96 w-64 overflow-scroll">
+        <%= render @order.order_items%>
+        </div>
+        <strong id="order_total">
+          Total Price: <%=@current_cart.sub_total%>
+        </strong>
+      </div>
+      <br>
+      <div class="">
+        <%if !@order.order_items.empty? %>
+        <h1>Shipping Information</h1>
+        <%= render 'orders/checkout_form', :object => {:order => @order, :user => @user}%>
+      </div>
+      <%end%>
+    </div>
+  </div>
 </div>
