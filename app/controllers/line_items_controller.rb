@@ -53,26 +53,38 @@ class LineItemsController < ApplicationController
 
   def add_quantity
     @line_item = LineItem.find(params[:id])
-    @order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
+    #@order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
     @line_item.quantity += 1
     respond_to do |format|
       if @line_item.update(quantity: @line_item.quantity)
         if @line_item.order_item
           @line_item.order_item.update(quantity: @line_item.quantity)
-        end
+          format.turbo_stream do
+            render turbo_stream:[
+              turbo_stream.update(@line_item,
+                                  partial: "line_items/line_item",
+                                  locals: {line_item: @line_item}),
+             turbo_stream.update(@line_item.order_item,
+                                  partial: "order_items/order_item",
+                                 locals: {order_item: @line_item.order_item}),
+              turbo_stream.update("cart_total",
+                                  html: "Your Total: #{@current_cart.sub_total}"),
+              turbo_stream.update("order_total",
+                                  html: "Your Total: #{@current_cart.sub_total}")
+            ]
+          end
+        else
         format.turbo_stream do
           render turbo_stream:[
             turbo_stream.update(@line_item,
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
-           turbo_stream.update(@line_item.order_item,
-                                partial: "order_items/order_item",
-                               locals: {order_item: @line_item.order_item}),
             turbo_stream.update("cart_total",
                                 html: "Your Total: #{@current_cart.sub_total}"),
             turbo_stream.update("order_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
           ]
+        end
         end
       else
         format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
@@ -91,21 +103,34 @@ class LineItemsController < ApplicationController
       if @line_item.update(quantity: @line_item.quantity)
         if @line_item.order_item
           @line_item.order_item.update(quantity: @line_item.quantity)
-        end
+          format.turbo_stream do
+            render turbo_stream:[
+              turbo_stream.update(@line_item,
+                                  partial: "line_items/line_item",
+                                  locals: {line_item: @line_item}),
+              turbo_stream.update(@line_item.order_item,
+                                  partial: "order_items/order_item",
+                                  locals: {order_item: @line_item.order_item}),
+              turbo_stream.update("cart_total",
+                                  html: "Your Total: #{@current_cart.sub_total}"),
+              turbo_stream.update("order_total",
+                                  html: "Your Total: #{@current_cart.sub_total}")
+
+            ]
+          end
+        else
         format.turbo_stream do
           render turbo_stream:[
             turbo_stream.update(@line_item,
                                 partial: "line_items/line_item",
                                 locals: {line_item: @line_item}),
-            turbo_stream.update(@line_item.order_item,
-                                partial: "order_items/order_item",
-                                locals: {order_item: @line_item.order_item}),
             turbo_stream.update("cart_total",
                                 html: "Your Total: #{@current_cart.sub_total}"),
             turbo_stream.update("order_total",
                                 html: "Your Total: #{@current_cart.sub_total}")
 
           ]
+        end
         end
       else
         format.turbo_stream {render turbo_stream: turbo_stream.replace("#{helpers.dom_id(@line_item)}_form", partial: "form", locals: {line_item: @line_item})}
