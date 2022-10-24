@@ -7,5 +7,7 @@
   Total Price: <%=@current_cart.sub_total%>
 </strong>
 <div>
+  <%if !@order.order_items.empty? %>
 <%= link_to "Continue to Shipping", shipping_path(@order)%>
+<%end%>
 </div>
