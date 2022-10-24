@@ -5,24 +5,15 @@
 <strong>Email: </strong><%=current_user.email%>
 <br>
 <strong>Address: </strong><%=current_user.address%>
-
+<br>
+<%= link_to "Edit Profile", edit_user_path(current_user)%>
 <p>
   <% current_user.orders.each do |order| %>
     <% if order.status != "not_ordered" %>
       <div class="flex flex-col">
-          <h3>Order #<%= order.id %></h3>
-          <% order.order_items.each do |item| %>
-            <ol>
-              <li>Item: <%= item.product.name %></li>
-              <li>Quantity:<%= item.quantity %></li>
-            </ol>
-          <%end%>
-          <p>Order Total: <%=order.total%></p>
-          <p>Status: <%=order.status%></p>
-          <br>
-      </div>
+          <%@order =  order%>
+          <%= render "users/order", locals: {order: @order} %>
+    </div>
     <%end%>
   <%end%>
 </p>
-<br>
-<%= link_to "Edit Profile", edit_user_path(current_user)%>
