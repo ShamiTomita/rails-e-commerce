@@ -16,9 +16,9 @@
     </span>
   </strong>
     <div id="checkout-button">
-      <% if !@current_cart.line_items.empty?%>
+      <%# if !@current_cart.line_items.empty?%>
       <%= button_to "Checkout", orders_path(:user_id => current_user.id, :cart_id => @current_cart.id), form: {data: {turbo_confirm: 'Go To Checkout?'}}, class: "block top-10 px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
-      <%end%>
+      <%#end%>
     </div>
   </div>
 
