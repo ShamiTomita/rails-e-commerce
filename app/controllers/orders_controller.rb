@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
 
   def checkout
     @order = Order.find(params[:id])
+    @user = current_user
   end
 
   def confrim
