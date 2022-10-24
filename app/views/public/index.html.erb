@@ -8,8 +8,8 @@
       Welcome Admin!
     </h1>
   <%else%>
-    <h1 class="text-3xl font-bold underline">
-      Plants R Us!
+    <h1 class="text-3xl text-slate-700 font-bold underline">
+      Welcome to the Plant Shop!
     </h1>
   <%end%>
 <%else%>
@@ -22,7 +22,7 @@
 
       <% @array.each do |item| %>
       <div data-slideshow-target="slide">
-        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover lg:w-96 lg:h-96" %></div>
+        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover rounded-lg lg:w-96 lg:h-96" %></div>
         <%=item.name%>
       </div>
       <%end%>
