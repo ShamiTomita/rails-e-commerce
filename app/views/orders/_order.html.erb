@@ -1,15 +1,16 @@
-<div id="<%= dom_id @order %>">
-  <p class="my-5">
+<div class="flex flex-col"id="<%= dom_id @order %>">
+  <div class="my-5">
     <% @order.order_items.each do |item| %>
-    Item: <%= item.product.name %>
-    Quantity: <%= item.quantity %>
-    Price: <%= item.total_price %>
+    <p>Item: <%= item.product.name %></p>
+    <p><%image = item.product.img%><%= image_tag (image), class: "w-16" %></p>
+    <p>Quantity: <%= item.quantity %></p>
+    <p>Price: <%= item.total_price %></p>
     <%end%>
-  </p>
-
+  </div>
+  <div>
   <p class="my-5">
     <strong class="block font-medium mb-1">Total Price:</strong>
     <%= @current_cart.sub_total %>
   </p>
-
+</div>
 </div>
