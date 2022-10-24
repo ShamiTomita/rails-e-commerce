@@ -32,22 +32,37 @@ class LineItemsController < ApplicationController
 
   def destroy
     @line_item = LineItem.find(params[:id])
-    if @current_cart.order
-      if @order_item = @current_cart.order.order_items.find_by(product_id: @line_item.product.id)
+    if @line_item.order_item
+      @order_item = @line_item.order_item
       @order_item.destroy
+      @line_item.destroy
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.remove(@line_item),
+            turbo_stream.remove(@order_item),
+            turbo_stream.update("cart_total",
+                                html: "Your Total: #{@current_cart.sub_total}"),
+            turbo_stream.update("order_total",
+                                html: "Your Total: #{@current_cart.sub_total}")
+                              ]
+        end
+        format.html { redirect_to messages_url, notice: "Item was successfully destroyed." }
+        format.json { head :no_content }
       end
-    end
-    @line_item.destroy
-    respond_to do |format|
-      format.turbo_stream do
-        render turbo_stream: [
-          turbo_stream.remove(@line_item),
-          turbo_stream.update("cart_total",
-                              html: "Your Total: #{@current_cart.sub_total}")
-                            ]
+    else
+      @line_item.destroy
+      respond_to do |format|
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.remove(@line_item),
+            turbo_stream.update("cart_total",
+                                html: "Your Total: #{@current_cart.sub_total}")
+                              ]
+        end
+        format.html { redirect_to messages_url, notice: "Item was successfully destroyed." }
+        format.json { head :no_content }
       end
-      format.html { redirect_to messages_url, notice: "Item was successfully destroyed." }
-      format.json { head :no_content }
     end
   end
 
