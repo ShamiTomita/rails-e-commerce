@@ -76,7 +76,6 @@
           <div data-menu-target="toggleable" class="hidden origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-2 ring-green ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
             <!-- Active: "bg-orang-100", Not Active: "" -->
             <a href="/profile" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-0">Your Profile</a>
-            <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem" tabindex="-1" id="user-menu-item-1">Settings</a>
             <%= link_to 'Logout', destroy_user_session_path, :method => :delete, class: "block px-4 py-2 text-sm text-gray-700",  role: "menuitem", tabindex: "-1", id:" user-menu-item-1"%>
           </div>
           <% else %>
