@@ -1,12 +1,23 @@
-<h2>Your Order</h2>
-<% @order.order_items.each do |item| %>
-<%= item.product.name %>
-<%end%>
-<h2>Your Shipping Info</h2>
-<%= @order.name%>
-<%= @order.email %>
-<%= @order.shipping_address %>
-<%= @order.status%>
-<% if !!@order.payment_method%>
-<p>Payment Confirmed</p>
-<%end%>
+<div class="flex flex-row">
+  <div>
+    <h2>Your Order</h2>
+    <% @order.order_items.each do |item| %>
+    <p>Item: <%= item.product.name %></p>
+    <p><%image = item.product.img%><%= image_tag (image), class: "w-16" %></p>
+    <p>Quantity: <%= item.quantity %> Price: <%= item.total_price %></p>
+    <%end%>
+    <strong>Order Total: <%=order.total%></strong>
+  </div>
+  <div class="mx-8 flex-col">
+    <h2>Your Shipping Info:</h2>
+    <ol>
+    <li>Name: <%= @order.name%></li>
+    <li>Email: <%= @order.email %></li>
+    <li>Shipping Address: <%= @order.shipping_address %></li>
+    <li><%#= @order.status%></li>
+    <% if @order.status != "not_ordered"%>
+    <li><p>Payment Confirmed</p></li>
+    <%end%>
+    </ol>
+  </div>
+</div>

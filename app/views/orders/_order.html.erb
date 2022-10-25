@@ -3,8 +3,7 @@
     <% @order.order_items.each do |item| %>
     <p>Item: <%= item.product.name %></p>
     <p><%image = item.product.img%><%= image_tag (image), class: "w-16" %></p>
-    <p>Quantity: <%= item.quantity %></p>
-    <p>Price: <%= item.total_price %></p>
+    <p>Quantity: <%= item.quantity %> Price: <%= item.total_price %></p>
     <%end%>
   </div>
   <div>

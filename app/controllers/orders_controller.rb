@@ -17,7 +17,7 @@ class OrdersController < ApplicationController
       item.destroy
     end
     @current_cart.destroy
-    redirect_to order_url(@order)
+    redirect_to "/profile"
   end
 
   def shipping

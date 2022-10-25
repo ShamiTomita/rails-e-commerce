@@ -8,25 +8,24 @@ class LineItemsController < ApplicationController
       # Find the line_item with the chosen_product
       @line_item = current_cart.line_items.find_by(:product_id => chosen_product)
       # Iterate the line_item's quantity by one
-
       update(@line_item)
     else
-    @line_item = LineItem.new(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
-    # Save and redirect to cart show path
-    respond_to do |format|
-      if @line_item.save
-        format.turbo_stream do
-          render turbo_stream: [
-            turbo_stream.append("cart", partial: "line_items/line_item", locals: {line_item: @line_item}),
-            turbo_stream.update('notice', "Added Item!"),
-            turbo_stream.update("cart_total", html: "Your Total: #{@current_cart.sub_total}")
-          ]
+      @line_item = LineItem.new(user_id:current_user.id, cart_id:current_cart.id, product_id:chosen_product.id, quantity:1)
+      # Save and redirect to cart show path
+      respond_to do |format|
+        if @line_item.save
+          format.turbo_stream do
+            render turbo_stream: [
+              turbo_stream.append("cart", partial: "line_items/line_item", locals: {line_item: @line_item}),
+              turbo_stream.update('notice', "Added Item!"),
+              turbo_stream.update("cart_total", html: "Your Total: #{@current_cart.sub_total}")
+            ]
+          end
+        else
+          format.html { render :new, status: :unprocessable_entity }
         end
-      else
-        format.html { render :new, status: :unprocessable_entity }
       end
     end
-  end
   end
 
 

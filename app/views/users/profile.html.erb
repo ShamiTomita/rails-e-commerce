@@ -19,16 +19,13 @@
 <%= link_to "Edit Profile", edit_user_path(current_user)%>
 <br>
 </div>
-<div class="flex flex-row">
-  <div>
-
+<div class="flex flex-wrap">
   <% current_user.orders.each do |order| %>
     <% if order.status != "not_ordered" %>
-
-          <%@order =  order%>
-          <%= render "users/order", locals: {order: @order} %>
-
-    <%end%>
+      <div class="max-w-sm h-64 rounded mx-5 overflow-y-scroll shadow-lg">
+        <div class="font-bold text-xl mb-2" sticky>Order #<%= order.id %></div>
+            <%= render "users/order", order: order %>
+      <%end%>
   <%end%>
-    </div>
+  </div>
 </div>

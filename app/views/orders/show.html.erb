@@ -1,15 +1,15 @@
 <% if @order.status != "not_ordered" %>
-<h1>CONFRIMATION OF YOUR ORDER</h1>
+<strong><h1>CONFRIMATION OF YOUR ORDER</h1></strong>
 <div class="">
 <%= render "orders/confirm", :order=>@order%>
 </div>
 <%else%>
-<h1>Pending Order </h1>
+<strong><h1>Pending Order </h1></strong>
 <div class="">
 <%= render "orders/confirm", :order=>@order%>
 </div>
 
 <div>
-  <%= button_to "Finalize Order", ordered_path(@order)%>
+  <strong><%= button_to "Finalize Order", ordered_path(@order), class:"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"%></strong>
 </div>
 <%end%>

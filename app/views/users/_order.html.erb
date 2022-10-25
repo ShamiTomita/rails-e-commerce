@@ -1,15 +1,14 @@
-<div class="max-w-sm rounded mx-5 overflow-scroll shadow-lg">
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">Order #<%= @order.id %></div>
-      <% @order.order_items.each do |item| %>
+  <div class="overflow-y-scroll px-6 py-4 flex flex-col">
+      <% order.order_items.each do |item| %>
+      <div class="flex-row">
         <ol>
           <li>Item: <%= item.product.name %></li>
           <li>Quantity:<%= item.quantity %></li>
           <li><%image = item.product.img%><%= image_tag (image), class: "w-16" %></li>
         </ol>
+      </div>
       <%end%>
-      <p>Order Total: <%=@order.total%></p>
-      <p>Status: <%=@order.status%></p>
+      <p>Order Total: <%=order.total%></p>
+      <p>Status: <%=order.status%></p>
     </div>
   </div>
-</div>
