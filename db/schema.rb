@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_21_215033) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_25_004553) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -53,10 +53,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_215033) do
     t.string "payment_method"
     t.integer "status", default: 0
     t.boolean "completed", default: false
-    t.string "shipping_address"
+    t.string "street_address"
     t.integer "cart_id"
-    t.string "name"
+    t.string "first_name"
     t.string "email"
+    t.string "state"
+    t.string "zipcode"
+    t.string "city"
+    t.string "last_name"
   end
 
   create_table "products", force: :cascade do |t|
@@ -81,8 +85,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_21_215033) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "role"
-    t.string "name"
+    t.string "first_name"
     t.string "address"
+    t.string "city"
+    t.string "zipcode"
+    t.string "state"
+    t.string "phone"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
