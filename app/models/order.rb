@@ -6,6 +6,10 @@ class Order < ApplicationRecord
 
 
   def shipping_address
-    return (self.street_address + " " + self.city + " " + self.state + " " + self.zipcode)
+    if !!self.city
+      return (self.address + " " + self.city + " " + self.state + " " + self.zipcode)
+    else
+      return nil
+    end
   end
 end
