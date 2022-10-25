@@ -8,8 +8,17 @@ class User < ApplicationRecord
 
   enum role: [:user, :admin]
   after_initialize :set_default_role, :if => :new_record?
-
+  validates :email,
+    :presence => :true,
+    :format => {
+      :with => /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i,
+      :message => "must be a valid email address"
+    }
   def set_default_role
     self.role ||= "user"
+  end
+
+  def shipping_address
+    return (self.address + " " + self.city + " " + self.state + " " + self.zipcode)
   end
 end
