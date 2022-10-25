@@ -19,6 +19,10 @@ class User < ApplicationRecord
   end
 
   def shipping_address
-    return (self.address + " " + self.city + " " + self.state + " " + self.zipcode)
+    if !!self.city
+      return (self.address + " " + self.city + " " + self.state + " " + self.zipcode)
+    else
+      return nil
+    end 
   end
 end

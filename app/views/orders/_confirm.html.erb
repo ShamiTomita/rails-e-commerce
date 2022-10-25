@@ -13,7 +13,7 @@
     <ol>
     <li>Name: <%= @order.first_name %> <%=@order.last_name %></li>
     <li>Email: <%= @order.email %></li>
-    <li>Shipping Address: <%= @order.user.shipping_address%></li>
+    <li>Shipping Address: <%= @order.shipping_address%></li>
     <li><%#= @order.status%></li>
     <% if @order.status != "not_ordered"%>
     <li><p>Payment Confirmed</p></li>
