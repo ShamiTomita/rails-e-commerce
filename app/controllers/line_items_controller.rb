@@ -35,11 +35,17 @@ class LineItemsController < ApplicationController
       @order_item = @line_item.order_item
       @order_item.destroy
       @line_item.destroy
+      @order = @line_item.order_item.order
       respond_to do |format|
         format.turbo_stream do
           render turbo_stream: [
             turbo_stream.remove(@line_item),
             turbo_stream.remove(@order_item),
+            turbo_stream.update("finalized",
+                                 partial: "orders/confirm",
+                                locals: {order: @order}),
+            turbo_stream.update("finalized-order",
+                                html: "Order Total: #{@current_cart.sub_total}"),
             turbo_stream.update("cart_total",
                                 html: "Your Total: #{@current_cart.sub_total}"),
             turbo_stream.update("order_total",
@@ -72,6 +78,7 @@ class LineItemsController < ApplicationController
     respond_to do |format|
       if @line_item.update(quantity: @line_item.quantity)
         if @line_item.order_item
+          @order = @line_item.order_item.order
           @line_item.order_item.update(quantity: @line_item.quantity)
           format.turbo_stream do
             render turbo_stream:[
@@ -81,6 +88,11 @@ class LineItemsController < ApplicationController
              turbo_stream.update(@line_item.order_item,
                                   partial: "order_items/order_item",
                                  locals: {order_item: @line_item.order_item}),
+             turbo_stream.update("finalized",
+                                  partial: "orders/confirm",
+                                 locals: {order: @order}),
+             turbo_stream.update("finalized-order",
+                                 html: "Order Total: #{@current_cart.sub_total}"),
               turbo_stream.update("cart_total",
                                   html: "Your Total: #{@current_cart.sub_total}"),
               turbo_stream.update("order_total",
@@ -117,11 +129,17 @@ class LineItemsController < ApplicationController
       if @line_item.update(quantity: @line_item.quantity)
         if @line_item.order_item
           @line_item.order_item.update(quantity: @line_item.quantity)
+          @order = @line_item.order_item.order
           format.turbo_stream do
             render turbo_stream:[
               turbo_stream.update(@line_item,
                                   partial: "line_items/line_item",
                                   locals: {line_item: @line_item}),
+              turbo_stream.update("finalized",
+                                   partial: "orders/confirm",
+                                  locals: {order: @order}),
+              turbo_stream.update("finalized-order",
+                                  html: "Order Total: #{@current_cart.sub_total}"),
               turbo_stream.update(@line_item.order_item,
                                   partial: "order_items/order_item",
                                   locals: {order_item: @line_item.order_item}),
