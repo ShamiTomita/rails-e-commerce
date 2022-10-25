@@ -1,19 +1,19 @@
-<div class="flex flex-row">
-  <div class="h-96 w-96 border-8 border-sky-100 overflow-scroll">
+<div id="finalized" class="flex flex-row">
+  <div class="h-96 w-4/5 border-8 bg-stone-50 border-green-200 p-8 mx-8 border-sky-100 overflow-scroll">
     <h2>Your Order</h2>
     <% @order.order_items.each do |item| %>
     <p><%image = item.product.img%><%= image_tag (image), class: "w-16" %></p>
     <p>Item: <%= item.product.name %></p>
     <p>Quantity: <%= item.quantity %> Price: <%= item.total_price %></p>
     <%end%>
-    <strong>Order Total: <%=order.total%></strong>
+    <strong><div id="finalized-order">Order Total: <%=@current_cart.sub_total%></div></strong>
   </div>
-  <div class="mx-8 flex-col">
+  <div class="mx-8 w-full flex-col">
     <strong><h2>Your Shipping Info:</h2></strong>
     <ol>
     <li>Name: <%= @order.first_name %> <%=@order.last_name %></li>
     <li>Email: <%= @order.email %></li>
-    <li>Shipping Address: <%= @order.street_address %> <%= @order.city%> <%= @order.state %> <%= @order.zipcode %></li>
+    <li>Shipping Address: <%= @order.user.shipping_address%></li>
     <li><%#= @order.status%></li>
     <% if @order.status != "not_ordered"%>
     <li><p>Payment Confirmed</p></li>
