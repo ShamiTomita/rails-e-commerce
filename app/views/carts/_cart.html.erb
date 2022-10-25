@@ -5,7 +5,9 @@
     <div>
 
   <ul id="cart">
+    <%if !!@current_cart %>
     <%=render @current_cart.line_items%>
+    <%end%>
   </ul>
 
   </div>
