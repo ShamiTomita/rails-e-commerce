@@ -2,29 +2,34 @@
 <% if notice.present? %>
   <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
 <% end %>
-<% if current_user%>
-  <% if current_user.role === "admin" %>
-    <h1 class="text-3xl font-bold underline">
-      Welcome Admin!
-    </h1>
+  <% if current_user%>
+    <% if current_user.role === "admin" %>
+      <%=link_to products_path do%>
+      <h1 class="text-3xl font-bold underline">
+        Welcome Admin!
+      </h1>
+      <%end%>
+    <%else%>
+    <%=link_to products_path do%>
+      <h1 class="text-3xl text-slate-700 font-bold">
+        Welcome to the Plant Shop!
+      </h1>
+      <%end%>
+    <%end%>
   <%else%>
-    <h1 class="text-3xl text-slate-700 font-bold underline">
-      Welcome to the Plant Shop!
-    </h1>
   <%end%>
-<%else%>
-
-<%end%>
 <div class="flex justify-center flex-row m-5">
   <div></div>
   <div class="">
     <div data-controller="slideshow">
 
       <% @array.each do |item| %>
-      <div data-slideshow-target="slide">
-        <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover rounded-lg lg:w-96 lg:h-96" %></div>
-        <%=item.name%>
-      </div>
+        <%=link_to product_path(item) do%>
+          <div data-slideshow-target="slide">
+            <div class="w-full h-full object-center object-cover lg:w-full lg:h-full"><%image = item.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover rounded-lg lg:w-96 lg:h-96" %></div>
+            <%=item.name%>
+          </div>
+        <%end%>
       <%end%>
       <button data-action="slideshow#previous"> ← </button>
       <button data-action="slideshow#next"> → </button>

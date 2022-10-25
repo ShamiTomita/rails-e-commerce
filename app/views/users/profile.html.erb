@@ -1,10 +1,10 @@
 <h1>Your Profile!</h1>
 <div class="m-6">
   <br>
-<%if !current_user.name%>
+<%if !current_user.first_name%>
 <strong>Please Add Your Name</strong>
 <%else%>
-<strong>Name: </strong><%=current_user.name%>
+<strong>Name: </strong><%=current_user.first_name%>
 <%end%>
 <br>
 <strong>Email: </strong><%=current_user.email%>
@@ -22,8 +22,8 @@
 <div class="flex flex-wrap">
   <% current_user.orders.each do |order| %>
     <% if order.status != "not_ordered" %>
-      <div class="max-w-sm h-64 rounded mx-5 overflow-y-scroll shadow-lg">
-        <div class="font-bold text-xl mb-2" sticky>Order #<%= order.id %></div>
+      <div class="max-w-sm  h-64 rounded m-5 overflow-y-scroll shadow-lg">
+        <div class="font-bold text-xl mb-2" sticky>Ordered <%= order.created_at.strftime("%Y-%m-%d") %></div>
             <%= render "users/order", order: order %>
       <%end%>
   <%end%>

@@ -1,20 +1,21 @@
-<h1>Your Current Order</h1>
-<div class="w-screen flex justify-center">
+<div class="w-full mt-4 flex justify-center">
   <div class="">
     <div class="flex flex-row">
       <div class="mr-64" id="order_items">
-        <h1>Order Information</h1>
-        <div class="h-96 w-64 overflow-scroll">
+        <strong><h1>Order Information</h1></strong>
+        <div class="h-96 w-96 border-8 border-sky-100 overflow-scroll">
         <%= render @order.order_items%>
         </div>
+        <br>
         <strong id="order_total">
           Total Price: <%=@current_cart.sub_total%>
         </strong>
       </div>
       <br>
-      <div class="">
+      <div class="w-64">
         <%if !@order.order_items.empty? %>
-        <h1>Shipping Information</h1>
+        <strong><h1>Shipping Information</h1></strong>
+        <br>
         <%= render 'orders/checkout_form', :object => {:order => @order, :user => @user}%>
       </div>
       <%end%>

@@ -1,9 +1,18 @@
 <%= form_for(user) do |f|%>
-    <%= f.text_field :name, placeholder:"Name", class:"textField"%>
+    <%= f.text_field :first_name, placeholder:"First Name", class:"textField"%>
+    <br>
+    <%= f.text_field :last_name, placeholder:"Last Name", class:"textField"%>
+    <br>
+    <%= f.text_field :address, placeholder:"Street Address", class:"textField"%>
+    <br>
+    <%= f.text_field :city, placeholder:"City", class:"textField"%>
+    <br>
+    <%= f.text_field :state, placeholder:"State", class:"textField"%>
+    <br>
+    <%= f.text_field :zipcode, placeholder:"Zipcode", class:"textField"%>
     <br>
     <%= f.text_field :email, placeholder:"Email", class:"textField"%>
     <br>
-    <%= f.text_field :address, placeholder:"Address", class:"textField"%>
     <%= f.submit %>
 
 <% end %>

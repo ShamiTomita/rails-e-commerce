@@ -1,13 +1,23 @@
 <%= form_for(@order) do |f| %>
-    <%= f.text_field :name, placeholder:"Name", class:"textField", value:current_user.name, required: true%>
+    <div>
+      <%= f.text_field :first_name, placeholder:"First Name", class:"textField", value:current_user.first_name, required: true%>
+      <%= f.text_field :last_name, placeholder:"Last Name", class:"textField", value:current_user.last_name, required: true%>
+    </div>
     <br>
     <%= f.text_field :email, placeholder:"Email", class:"input", value:current_user.email, required: true%>
     <br>
-    <%= f.text_field :shipping_address, placeholder:"Shipping", class:"input", value:current_user.address, required: true%>
+    <%= f.text_field :street_address, placeholder:"Shipping", class:"input", value:current_user.address, required: true%>
+    <br>
+    <%= f.text_field :city, placeholder:"City", class:"input", value:current_user.city, required: true%>
+    <br>
+    <%= f.text_field :state, placeholder:"State", class:"input", value:current_user.state, required: true%>
+    <br>
+    <%= f.text_field :zipcode, placeholder:"Zipcode", class:"input", value:current_user.zipcode, required: true%>
     <br>
     <%= f.text_field :payment_method, placeholder:"Payment Method", class:"input", required: true%>
     <br>
     <%= f.hidden_field :total, :value => @current_cart.sub_total %>
+    <br>
     <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
        Submit Shipping Information
     <% end %>
