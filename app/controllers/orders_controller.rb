@@ -3,6 +3,9 @@ class OrdersController < ApplicationController
   def checkout
     @order = Order.find(params[:id])
     @user = current_user
+    if @order.order_items.empty?
+      redirect_to products_path
+    end 
   end
 
   def confrim
@@ -11,6 +14,7 @@ class OrdersController < ApplicationController
 
   def finalized
     @order = Order.find(params[:id])
+    @order.total = @current_cart.sub_total
     @order.status = 1
     @order.save
     @current_cart.line_items.each do |item|
@@ -68,7 +72,11 @@ class OrdersController < ApplicationController
   def update
     @order = Order.find(params[:id])
     @order.update(order_params)
-    redirect_to order_url(@order)
+    if !@order.order_items.empty?
+      redirect_to order_url(@order)
+    else
+      redirect_to products_path
+    end
   end
 
 
