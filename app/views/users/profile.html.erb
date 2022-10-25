@@ -4,7 +4,7 @@
 <%if !current_user.first_name%>
 <strong>Please Add Your Name</strong>
 <%else%>
-<strong>Name: </strong><%=current_user.first_name%>
+<strong>Name: </strong><%=current_user.first_name%> <%=current_user.last_name%>
 <%end%>
 <br>
 <strong>Email: </strong><%=current_user.email%>
@@ -12,7 +12,7 @@
 <%if !current_user.address%>
 <strong>Please Add Your Address</strong>
 <%else%>
-<strong>Shipping Address: </strong><%=current_user.address%>
+<strong>Shipping Address: </strong><%=current_user.shipping_address%>
 <%end%>
 <br>
 
