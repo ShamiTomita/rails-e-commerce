@@ -1,6 +1,7 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
+    @q = Product.ransack(params[:q])
+    @products = @q.result(distinct: true)
   end
 
   def new
@@ -18,7 +19,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find(params[:id])
-  end 
+  end
   def update
     @product = Product.find(params[:id])
     @product.update(product_params)
