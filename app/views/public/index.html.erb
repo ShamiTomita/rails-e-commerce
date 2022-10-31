@@ -28,5 +28,9 @@
   </div>
   <div></div>
 </div>
-<div>hello</div>
+  <div>
+    <% @products.each do |product|%>
+    <%image = product.img%><%= image_tag (image), :class=>"w-full h-full object-center object-cover rounded-lg lg:w-96 lg:h-96" %>
+    <%end%>
+  </div>
 </div>
