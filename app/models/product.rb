@@ -4,6 +4,13 @@ class Product < ApplicationRecord
   scope :filter_by_low_water, -> {select {|p| p.low_water === true}}
   scope :filter_by_med_water, -> {select {|p| p.med_water === true}}
   scope :filter_by_high_water, -> {select {|p| p.high_water === true}}
+
+  scope :filter_by_low_temp, -> {select {|p| p.low_temp === true}}
+  scope :filter_by_med_temp, -> {select {|p| p.med_temp === true}}
+  scope :filter_by_high_temp, -> {select {|p| p.high_temp === true}}
+
+  scope :low_to_high, -> {order(price: :asc)}
+  scope :high_to_low, -> {order(price: :desc)}
   def self.ransackable_attributes(auth_object = nil)
     ["name", "pet_friendly"]
   end
@@ -33,7 +40,34 @@ class Product < ApplicationRecord
     end
   end
 
+##### temp methods
 
+  def low_temp
+    t = self.temp.split("-")
+    if t[0].to_i <= 60
+      return true
+    else
+      false
+    end
+  end
+
+  def med_temp
+    t = self.temp.split("-")
+    if t[1].to_i <= 80
+      return true
+    else
+      false
+    end
+  end
+
+  def high_temp
+    t = self.temp.split("-")
+    if t[1].to_i >= 90
+      return true
+    else
+      false
+    end
+  end
 
 
 
