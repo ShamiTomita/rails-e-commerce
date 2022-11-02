@@ -1,7 +1,9 @@
 <%= search_form_for @q do |f| %>
 
-  <%= f.label :name_cont %>
+  <%= f.label "Name" %>
   <%= f.search_field :name_cont %>
-
+  <br>
+  <%= f.label "Pet Friendly?" %>
+  <%= f.check_box :pet_friendly_true %>
   <%= f.submit %>
 <% end %>
