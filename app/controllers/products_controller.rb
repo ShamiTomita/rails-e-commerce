@@ -3,6 +3,7 @@ class ProductsController < ApplicationController
     @products = Product.all
     @q = Product.ransack(params[:q])
     @products = @q.result(distinct: true)
+    handle_filters
   end
 
   def new
@@ -36,5 +37,11 @@ class ProductsController < ApplicationController
   private
     def product_params
       params.require(:product).permit(:name, :price)
+    end
+
+    def handle_filters
+      if session[:filter_option] && session[:filter] == "Low Water"
+        @products = Product.all.filter_by_low_water
+      end
     end
 end
