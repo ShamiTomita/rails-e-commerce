@@ -13,7 +13,6 @@ class Product < ApplicationRecord
   scope :filter_by_med_light, -> {select {|p| p.med_light === true}}
   scope :filter_by_high_light, -> {select {|p| p.high_light === true}}
 
-
   scope :low_to_high, -> {order(price: :asc)}
   scope :high_to_low, -> {order(price: :desc)}
   def self.ransackable_attributes(auth_object = nil)
