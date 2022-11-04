@@ -8,6 +8,22 @@
     </div>
     <div class="search">
       <%=render "products/search_form"%>
+      <p>hi</p>
+      <form action="/products" method="GET">
+        <select id="filter" name="filter" onchange="this.form.submit()"></p>
+          <label for="filter">Filter Options</label>
+          <option value="">Pick a Filter Option</option>
+          <option value="category" <%= "selected" if session[:filter] == "category" %>>Filter by Category</option>
+        </select>
+        <% if session[:filter] == "" %>
+          <%=@products = Products.all%>
+        <% elsif session[:filter] == "category" %>
+          <select name="filter_option" onchange="this.form.submit()">
+            <option value="">Pick a Category</option>
+            <option value="Low Water">Exercise</option>
+          </select>
+          <%end%>
+      </form>
     </div>
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @products.map do |product| %>
