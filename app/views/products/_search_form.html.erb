@@ -2,8 +2,10 @@
 
   <%= f.label "Name" %>
   <%= f.search_field :name_cont %>
-  <br>
   <%= f.label "Pet Friendly?" %>
   <%= f.check_box :pet_friendly_true %>
+  <br>
   <%= f.submit %>
+  <br>
+  <a href="/products" class="btn btn-default btn-block">Clear filters</a>
 <% end %>
