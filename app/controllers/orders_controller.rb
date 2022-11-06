@@ -5,7 +5,24 @@ class OrdersController < ApplicationController
     @user = current_user
     if @order.order_items.empty?
       redirect_to products_path
-    end 
+    end
+    #@session = Stripe::Checkout::Session.create({
+    #   customer: current_user.stripe_customer_id,
+    #   payment_method_types: ['card'],
+    #   line_items: @order.order_items.map do |item|
+    #     
+    #     name: item.product.name
+    #     amount: item.total_price
+    #     currency: "usd"
+    #     quantity: item.quantity
+    #   end ,
+    #   allow_promotion_codes: true,
+    #   mode: 'payment',
+    #   success_url: success_url + "?session_id={CHECKOUT_SESSION_ID}",
+    #   cancel_url: cancel_url,
+    # })
+    # redirect_to @session.url
+   #end
   end
 
   def confrim
