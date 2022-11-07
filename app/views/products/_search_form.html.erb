@@ -4,8 +4,7 @@
   <%= f.search_field :name_cont %>
   <%= f.label "Pet Friendly?" %>
   <%= f.check_box :pet_friendly_true %>
-  <br>
-  <%= f.submit %>
-  <br>
-  <a href="/products" class="btn btn-default btn-block">Clear filters</a>
+  <%= f.submit :Search, class: 'bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-2 border-b-2 border-blue-700 hover:border-blue-500 rounded' %>
+
+  <a href="/products" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-2 border-b-2 border-blue-700 hover:border-blue-500 rounded">Clear filters</a>
 <% end %>
