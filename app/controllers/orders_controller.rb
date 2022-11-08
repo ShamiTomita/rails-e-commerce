@@ -13,16 +13,11 @@ class OrdersController < ApplicationController
     redirect_to root_path
   end
 
-  def finalized
-    @order = Order.find(params[:id])
-    @order.total = @current_cart.sub_total
-    @order.status = 1
-    @order.save
-    @current_cart.line_items.each do |item|
-      item.destroy
-    end
+  def finalized(order)
+    order.total = @current_cart.sub_total
+    order.status = 1
+    order.save
     @current_cart.destroy
-    redirect_to "/profile"
   end
 
   def shipping
@@ -75,23 +70,37 @@ class OrdersController < ApplicationController
     @order.update(order_params)
     if !@order.order_items.empty?
       stripe_checkout(@order)
-      redirect_to order_url(@order)
     else
       redirect_to products_path
     end
   end
 
   def stripe_checkout(order)
+    if !current_user.stripe_id
+      @customer = Stripe::Customer.create(email:order.email)
+      current_user.stripe_id = @customer.id
+      current_user.save
+    end
+    items = order.order_items.map{|item| {
+      price: Stripe::Product.retrieve(item.product.stripe_id).default_price,
+      quantity: item.quantity
+      }}
     @session = Stripe::Checkout::Session.create({
-       customer: current_user.id,
+       customer: current_user.stripe_id,
        payment_method_types: ['card'],
-       line_items: order.order_items,
-       allow_promotion_codes: true,
+       line_items: [items],
        mode: 'payment',
-       success_url: ordered_path(order) + "?session_id={CHECKOUT_SESSION_ID}",
-       cancel_url: root_path,
+       success_url: root_url + "success?session_id={CHECKOUT_SESSION_ID}",
+       cancel_url: root_url,
      })
-     redirect_to @session.url
+     finalized(order)
+     redirect_to @session.url, allow_other_host: true
+  end
+
+  def success
+    session = Stripe::Checkout::Session.retrieve(params[:session_id])
+    @customer = Stripe::Customer.retrieve(session.customer)
+
   end
 
 
