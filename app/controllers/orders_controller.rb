@@ -6,27 +6,11 @@ class OrdersController < ApplicationController
     if @order.order_items.empty?
       redirect_to products_path
     end
-    #@session = Stripe::Checkout::Session.create({
-    #   customer: current_user.stripe_customer_id,
-    #   payment_method_types: ['card'],
-    #   line_items: @order.order_items.map do |item|
-    #     
-    #     name: item.product.name
-    #     amount: item.total_price
-    #     currency: "usd"
-    #     quantity: item.quantity
-    #   end ,
-    #   allow_promotion_codes: true,
-    #   mode: 'payment',
-    #   success_url: success_url + "?session_id={CHECKOUT_SESSION_ID}",
-    #   cancel_url: cancel_url,
-    # })
-    # redirect_to @session.url
-   #end
   end
 
   def confrim
     @order = Order.find(params[:id])
+    redirect_to root_path
   end
 
   def finalized
@@ -86,14 +70,28 @@ class OrdersController < ApplicationController
     end
   end
 
-  def update
+  def update #target here
     @order = Order.find(params[:id])
     @order.update(order_params)
     if !@order.order_items.empty?
+      stripe_checkout(@order)
       redirect_to order_url(@order)
     else
       redirect_to products_path
     end
+  end
+
+  def stripe_checkout(order)
+    @session = Stripe::Checkout::Session.create({
+       customer: current_user.id,
+       payment_method_types: ['card'],
+       line_items: order.order_items,
+       allow_promotion_codes: true,
+       mode: 'payment',
+       success_url: ordered_path(order) + "?session_id={CHECKOUT_SESSION_ID}",
+       cancel_url: root_path,
+     })
+     redirect_to @session.url
   end
 
 
