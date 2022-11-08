@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   get '/shipping/:id', to: "orders#shipping", as: "shipping"
   get '/confirm/:id', to: "orders#confirm", as: "confirm"
   post '/finalized/:id', to: "orders#finalized", as: "ordered"
-  
+
+  get "success", to: "orders#success"
+
   get '/items', to: "orders#checkout_items"
   post 'line_items/:id/add' => "line_items#add_quantity", as: "line_item_add"
   post 'line_items/:id/reduce' => "line_items#reduce_quantity", as: "line_item_reduce"
