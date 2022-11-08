@@ -1,9 +1,13 @@
 # README
 
 
+![Screen Shot 2022-11-08 at 5 15 02 PM](https://user-images.githubusercontent.com/70528966/200688157-84f5675c-6a0e-4300-9e3a-5f4449140674.png)
+![Screen Shot 2022-11-08 at 5 15 46 PM](https://user-images.githubusercontent.com/70528966/200688186-cf1b931c-10f4-42b9-8b67-aed7687f078d.png)
+![Screen Shot 2022-11-08 at 5 16 05 PM](https://user-images.githubusercontent.com/70528966/200688195-814d99f6-0c47-4c6b-908d-1c4bb8f3e37f.png)
+
 Specs:
 * Ruby 3.0.0
-* Rails 7.0.4
+* Rails 7.0.4!
 * Authentication with Devise Gem
 * PostgreSQL Database
 * Tailwind CSS
