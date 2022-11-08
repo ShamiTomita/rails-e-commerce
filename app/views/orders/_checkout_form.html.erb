@@ -18,7 +18,7 @@
     <br>
     <%= f.hidden_field :total, :value => @current_cart.sub_total %>
     <br>
-    <%= button_tag(type: 'submit', class: "btn btn-primary") do %>
+    <%= button_tag(type: 'submit', class: "btn btn-primary", data: { turbo: false }) do %>
        Submit Shipping Information
     <% end %>
 
