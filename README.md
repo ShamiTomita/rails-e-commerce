@@ -3,7 +3,7 @@
 
 Specs:
 * Ruby 3.0.0
-* Rails 7.0.4
+* Rails 7.0.4!
 * Authentication with Devise Gem
 * PostgreSQL Database
 * Tailwind CSS
