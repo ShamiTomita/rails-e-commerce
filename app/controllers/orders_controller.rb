@@ -90,17 +90,14 @@ class OrdersController < ApplicationController
        payment_method_types: ['card'],
        line_items: [items],
        mode: 'payment',
-       #is there a way to extract params from this url 
-       success_url: order_url(order) + "success?session_id={CHECKOUT_SESSION_ID}",
-       cancel_url: checkout_url,
+       success_url: root_url + "success?session_id={CHECKOUT_SESSION_ID}",
+       cancel_url: root_url,
      })
-
+     finalized(order)
      redirect_to @session.url, allow_other_host: true
   end
 
   def success
-    order = Order.find_by(params[:id])
-    finalized(order)
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @customer = Stripe::Customer.retrieve(session.customer)
 
