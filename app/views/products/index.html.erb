@@ -7,9 +7,22 @@
       <h1 class="font-bold text-4xl">Shop Plants!</h1>
     </div>
     <br>
-    <div class="search">
-      <%=render "products/search_form"%>
-    </div>
+      <div class="search">
+      <form action="/products" method="GET" data-turbo="false">
+      <select name="filter" onchange="this.form.submit()">
+        <option value=""> Water Maintenance</option>
+        <option value="low"> Low Water</option>
+        <option value="med"> Med Water</option>
+        <option value="high"> High Water</option>
+      </select>
+      <% if session[:filter] == 'low' %>
+      <% @products = Product.filter_by_water("drought")%>
+      <% elsif session[:filter] == "med" %>
+      <% @products = Product.filter_by_water("dry")%>
+      <% elsif session[:filter] == "high" %>
+      <% @products = Product.filter_by_water("thoroughly")%>
+      <%end%>
+      </form>
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @products.map do |product| %>
 
