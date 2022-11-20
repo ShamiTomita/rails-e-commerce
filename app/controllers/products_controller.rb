@@ -1,8 +1,15 @@
 class ProductsController < ApplicationController
   def index
     @products = Product.all
-    @q = Product.ransack(params[:q])
-    @products = @q.result(distinct: true)
+    session[:filter] = params[:filter]
+    if session[:filter] == "low"
+      @products.filter_by_water("drought")
+    elsif session[:filter] == "med"
+      @products.filter_by_water("dry")
+    elsif session[:filter] == "high"
+      
+      @products.filter_by_water("thoroughly")
+    end 
   end
 
   def new
