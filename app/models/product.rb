@@ -1,7 +1,9 @@
 class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
 
-  scope :filter_by_low_water, -> {select {|p| p.low_water === true}}
+  scope :filter_by_low_water, -> (watering) {where("watering LIKE ?", "%drought%")}
+                                  #where column like query
+
   scope :filter_by_med_water, -> {select {|p| p.med_water === true}}
   scope :filter_by_high_water, -> {select {|p| p.high_water === true}}
 
