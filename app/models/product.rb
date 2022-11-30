@@ -3,17 +3,22 @@ class Product < ApplicationRecord
 
   scope :filter_by_water, -> (watering) {where("watering LIKE ?", "%#{watering}%")}
                                   #where column like query
+  scope :filter_by_light, -> (light) {where("light LIKE ?", "%#{light}%")}
 
-  scope :filter_by_med_water, -> {select {|p| p.med_water === true}}
-  scope :filter_by_high_water, -> {select {|p| p.high_water === true}}
+  scope :filter_by_temp, -> (temp) {where("temp LIKE ?", "%#{temp}%")}
 
-  scope :filter_by_low_temp, -> {select {|p| p.low_temp === true}}
-  scope :filter_by_med_temp, -> {select {|p| p.med_temp === true}}
-  scope :filter_by_high_temp, -> {select {|p| p.high_temp === true}}
+  scope :filter_light, -> (light) {where("light LIKE ?", "%#{light}")}
 
-  scope :filter_by_low_light, -> {select {|p| p.low_light === true}}
-  scope :filter_by_med_light, -> {select {|p| p.med_light === true}}
-  scope :filter_by_high_light, -> {select {|p| p.high_light === true}}
+  #scope :filter_by_med_water, -> {select {|p| p.med_water === true}}
+  #scope :filter_by_high_water, -> {select {|p| p.high_water === true}}
+
+  #scope :filter_by_low_temp, -> {select {|p| p.low_temp === true}}
+  #scope :filter_by_med_temp, -> {select {|p| p.med_temp === true}}
+  #scope :filter_by_high_temp, -> {select {|p| p.high_temp === true}}
+
+  #scope :filter_by_low_light, -> {select {|p| p.low_light === true}}
+  #scope :filter_by_med_light, -> {select {|p| p.med_light === true}}
+  #scope :filter_by_high_light, -> {select {|p| p.high_light === true}}
 
   scope :low_to_high, -> {order(price: :asc)}
   scope :high_to_low, -> {order(price: :desc)}
