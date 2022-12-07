@@ -34,13 +34,14 @@
 
       <div
         class="card"
-      ><div class="card" data-controller="slideshow">
+      ><div class="card w-full h-full flex-col justify-center" data-controller="slideshow">
           <% @array.each do |item| %>
             <%=link_to product_path(item) do%>
-              <div data-slideshow-target="slide" class="w-96 h-96 justify-center">
-                <div class=" object-center object-cover">
+              <div data-slideshow-target="slide" class="object-cover object-center">
+                <!--TODO Center image!!!-->
+                <div>
                   <%image=item.img%>
-                    <%= image_tag (image), :class=>"w-12 h-12" %>
+                  <%= image_tag (image), :class=>"w-1/4" %>
                 </div>
                 <div class="text-sm">
                   <%=item.name%>
@@ -48,8 +49,10 @@
               </div>
               <%end%>
           <%end%>
+          <div class="flex flex-row">
           <button data-action="slideshow#previous"> ← </button>
           <button data-action="slideshow#next"> → </button>
+          </div>
         </div>
     </section>
 </div>
