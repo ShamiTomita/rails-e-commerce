@@ -11,25 +11,40 @@
 
 <div class="flex justify-center flex-row m-5">
     <section class="animated-grid">
-      <% @array.each do |item| %> 
         <div
           class="card"
-          style='background-image:url("<%=item.img%>")'
-        ><%image=item.img%>
-          <%= image_tag (image), :class=>"" %></div>
-      <%end%>
+          style='background-image:url("https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")'
+        ></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1446071103084-c257b5f70672?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1503149779833-1de50ebe5f8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1446071103084-c257b5f70672?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1503149779833-1de50ebe5f8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1503149779833-1de50ebe5f8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1491147334573-44cbb4602074?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80>")'></div>
+        <div class="card" style='background-image:url("https://images.unsplash.com/photo-1446071103084-c257b5f70672?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80")'></div>
+        <div class="card"
+          style='background-image:url("https://images.unsplash.com/photo-1503149779833-1de50ebe5f8a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80")'>
+        </div>
+        <div class="card"
+          style='background-image:url("https://images.unsplash.com/photo-1446071103084-c257b5f70672?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=684&q=80")'>
+        </div>
+
+
       <div
         class="card"
       ><div class="card" data-controller="slideshow">
-          <h1>Animated Grid</h1>
           <% @array.each do |item| %>
             <%=link_to product_path(item) do%>
-              <div data-slideshow-target="slide">
-                <div class="w-full h-full object-center object-cover lg:w-full lg:h-full">
+              <div data-slideshow-target="slide" class="w-96 h-96 justify-center">
+                <div class=" object-center object-cover">
                   <%image=item.img%>
-                    <%= image_tag (image), :class=>"" %>
+                    <%= image_tag (image), :class=>"w-full h-full" %>
                 </div>
-                <%=item.name%>
+                <div class="text-sm">
+                  <%=item.name%>
+                </div>
               </div>
               <%end%>
           <%end%>
