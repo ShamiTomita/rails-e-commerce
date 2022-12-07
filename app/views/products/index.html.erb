@@ -11,7 +11,7 @@
       <form action="/products" method="GET" data-turbo="false">
       <select name="filter" onchange="this.form.submit()">
         <option value="">Choose A Filter</option>
-        <option value="water"> Water Maintenance</option>
+        <option value="water" <%= "selected" if session[:filter] == "water" %>> Water Maintenance</option>
         <option value="light"> Light Maintenance</option>
         <option value="temp"> Temperature Maintenance</option>
       </select>
