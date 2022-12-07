@@ -27,16 +27,16 @@
       <% elsif session[:filter] == 'light' %>
         <select name="filter_option" onchange="this.form.submit()">
         <option value=""> Light Maintenance</option>
-        <option value="low"> Low Light</option>
-        <option value="med"> Med Light</option>
-        <option value="high"> High Light</option>
+        <option value="low">Low Light</option>
+        <option value="med">Med Light</option>
+        <option value="high">High Light</option>
         </select>
-      <% elsif session[:filter] == 'water' %>
+      <% elsif session[:filter] == 'temp' %>
         <select name="filter_option" onchange="this.form.submit()">
-        <option value=""> Water Maintenance</option>
-        <option value="low"> Low Water</option>
-        <option value="med"> Med Water</option>
-        <option value="high"> High Water</option>
+        <option value=""> Temperature  Maintenance</option>
+        <option value="low">Low Temperature</option>
+        <option value="med">Med Temperature</option>
+        <option value="high"> High Temperature</option>
         </select>
       <%end%>
       </form>
