@@ -12,8 +12,8 @@
       <select name="filter" onchange="this.form.submit()">
         <option value="">Choose A Filter</option>
         <option value="water" <%= "selected" if session[:filter] == "water" %>> Water Maintenance</option>
-        <option value="light"> Light Maintenance</option>
-        <option value="temp"> Temperature Maintenance</option>
+        <option value="light" <%= "selected" if session[:filter] == "light" %>> Light Maintenance</option>
+        <option value="temp"  <%= "selected" if session[:filter] == "temp" %>> Temperature Maintenance</option>
       </select>
       <% if session[:filter] == '' %>
         <%=@products = Product.all%>
