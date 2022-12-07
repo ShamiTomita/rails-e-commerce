@@ -10,19 +10,31 @@
       <div class="search">
       <form action="/products" method="GET" data-turbo="false">
       <select name="filter" onchange="this.form.submit()">
+        <option value="">Choose A Filter</option>
+        <option value="water"> Water Maintenance</option>
+        <option value="light"> Light Maintenance</option>
+        <option value="temp"> Temperature Maintenance</option>
+      </select>
+      
+      <% if session[:filter] == 'water' %>
+        <select name="filter_water_option" onchange="this.form.submit()">
         <option value=""> Water Maintenance</option>
         <option value="low"> Low Water</option>
         <option value="med"> Med Water</option>
         <option value="high"> High Water</option>
-      </select>
-      <% if session[:filter] == 'low' %>
-      <% @products = Product.filter_by_water("drought")%>
-      <% elsif session[:filter] == "med" %>
-      <% @products = Product.filter_by_water("dry")%>
-      <% elsif session[:filter] == "high" %>
-      <% @products = Product.filter_by_water("thoroughly")%>
+        </select>
+        <% if session[:filter_option] == 'low'%>
+          <% @products = Product.filter_by_water("drought")%>
+        <% elsif session[:filter_option] == "med" %>
+          <% @products = Product.filter_by_water("dry")%>
+        <% elsif session[:filter_option] == "high" %>
+          <% @products = Product.filter_by_water("thoroughly")%>
+        <%end%>
       <%end%>
       </form>
+      <div class="clear">
+        <%= link_to "Clear Filter Options", products_path %>
+      </div>
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @products.map do |product| %>
 
