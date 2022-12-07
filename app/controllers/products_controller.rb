@@ -1,6 +1,5 @@
 class ProductsController < ApplicationController
   def index
-    @products = Product.all
     session[:search_name] ||= params[:search_name]
     session[:filter] = params[:filter]
     params[:filter_option] = nil if params[:filter_option] == ""
@@ -8,12 +7,14 @@ class ProductsController < ApplicationController
     #TODO Fix THIS!!! options arent filtering or persisting
     if session[:filter_option] && session[:filter] == "water"
       if session[:filter_option] == "low"
-        @products.filter_by_water("drought")
+        @products = Product.all.filter_by_water("drought")
       elsif session[:filter_option] == "med"
-        @products.filter_by_water("dry")
+        @products = Product.all.filter_by_water("dry")
       elsif session[:filter_option] == "high"
-        @products.filter_by_water("thoroughly")
-      end 
+        @products = Product.all.filter_by_water("thoroughly")
+      end
+    else 
+      @products = Product.all 
     end 
   end
 

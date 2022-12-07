@@ -15,21 +15,16 @@
         <option value="light"> Light Maintenance</option>
         <option value="temp"> Temperature Maintenance</option>
       </select>
-      
-      <% if session[:filter] == 'water' %>
-        <select name="filter_water_option" onchange="this.form.submit()">
+      <% if session[:filter] == '' %>
+        <%=@products = Product.all%>
+      <% elsif session[:filter] == 'water' %>
+        <select name="filter_option" onchange="this.form.submit()">
         <option value=""> Water Maintenance</option>
         <option value="low"> Low Water</option>
         <option value="med"> Med Water</option>
         <option value="high"> High Water</option>
         </select>
-        <% if session[:filter_option] == 'low'%>
-          <% @products = Product.filter_by_water("drought")%>
-        <% elsif session[:filter_option] == "med" %>
-          <% @products = Product.filter_by_water("dry")%>
-        <% elsif session[:filter_option] == "high" %>
-          <% @products = Product.filter_by_water("thoroughly")%>
-        <%end%>
+        
       <%end%>
       </form>
       <div class="clear">
