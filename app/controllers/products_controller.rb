@@ -4,7 +4,8 @@ class ProductsController < ApplicationController
     session[:filter] = params[:filter]
     params[:filter_option] = nil if params[:filter_option] == ""
     session[:filter_option] = params[:filter_option]
-    #TODO Fix THIS!!! options arent filtering or persisting
+    #TODO refactor eventually
+    #############
     if session[:filter_option] && session[:filter] == "water"
       if session[:filter_option] == "low"
         @products = Product.all.filter_by_water("drought")

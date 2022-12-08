@@ -7,9 +7,10 @@
       <h1 class="font-bold text-4xl">Shop Plants!</h1>
     </div>
     <br>
+    <!--TODO Give Actual style to buttons-->
       <div class="search">
       <form action="/products" method="GET" data-turbo="false">
-      <select name="filter" onchange="this.form.submit()">
+      <select name="filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="this.form.submit()">
         <option value="">Choose A Filter</option>
         <option value="water" <%= "selected" if session[:filter] == "water" %>> Water Maintenance</option>
         <option value="light" <%= "selected" if session[:filter] == "light" %>> Light Maintenance</option>
@@ -18,26 +19,27 @@
       <% if session[:filter] == '' %>
         <%=@products = Product.all%>
       <% elsif session[:filter] == 'water' %>
-        <select name="filter_option" onchange="this.form.submit()">
-        <option value=""> Water Maintenance</option>
+        <select name="filter_option" onchange="this.form.submit()" class="bg-blue-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="">Options</option>
         <option value="low"> Low Water</option>
         <option value="med"> Med Water</option>
         <option value="high"> High Water</option>
         </select>
       <% elsif session[:filter] == 'light' %>
-        <select name="filter_option" onchange="this.form.submit()">
-        <option value=""> Light Maintenance</option>
+        <select name="filter_option" onchange="this.form.submit()" class="bg-yellow-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="">Options</option>
         <option value="low">Low Light</option>
         <option value="med">Med Light</option>
         <option value="high">High Light</option>
         </select>
       <% elsif session[:filter] == 'temp' %>
-        <select name="filter_option" onchange="this.form.submit()">
-        <option value=""> Temperature  Maintenance</option>
+        <select name="filter_option" onchange="this.form.submit()" class="bg-orange-100 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+        <option value="">Options</option>
         <option value="low">Low Temperature</option>
         <option value="med">Med Temperature</option>
         <option value="high"> High Temperature</option>
         </select>
+      <%else%>
       <%end%>
       </form>
       <div class="clear">
