@@ -8,7 +8,7 @@
     </div>
     <br>
     <!--TODO Give Actual style to buttons-->
-      <div class="search">
+    <div class="search flex flex-row">
       <form action="/products" method="GET" data-turbo="false">
       <select name="filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="this.form.submit()">
         <option value="">Choose A Filter</option>
@@ -42,9 +42,10 @@
       <%else%>
       <%end%>
       </form>
-      <div class="clear">
+      <div class="text-gray-900 bg-gradient-to-r from-teal-200 to-lime-200 hover:bg-gradient-to-l hover:from-teal-200 hover:to-lime-200 focus:ring-4 focus:outline-none focus:ring-lime-200 dark:focus:ring-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 h-11">
         <%= link_to "Clear Filter Options", products_path %>
       </div>
+    </div>
     <div class="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
       <% @products.map do |product| %>
 
