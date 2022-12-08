@@ -13,6 +13,24 @@ class ProductsController < ApplicationController
       elsif session[:filter_option] == "high"
         @products = Product.all.filter_by_water("thoroughly")
       end
+    ############# 
+    elsif session[:filter_option] && session[:filter] == "light"
+      if session[:filter_option] == "low"
+        @products = Product.all.filter_by_light("tolerates")
+      elsif session[:filter_option] == "med"
+        @products = Product.all.filter_by_light("indirect")
+      elsif session[:filter_option] == "high"
+        @products = Product.all.filter_by_light("bright")
+      end
+    ############  
+    elsif session[:filter_option] && session[:filter] == "temp"
+      if session[:filter_option] == "low"
+        @products = Product.all.filter_by_temp("80")
+      elsif session[:filter_option] == "med"
+        @products = Product.all.filter_by_temp("85")
+      elsif session[:filter_option] == "high"
+        @products = Product.all.filter_by_temp("90")
+      end  
     else 
       @products = Product.all 
     end 
