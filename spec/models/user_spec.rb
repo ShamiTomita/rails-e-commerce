@@ -1,7 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  it "can run tests" do
-    expect(false).to be(false)
-  end
+  describe "model validations" do 
+    it "requires email" do
+      user = build(:user, email: "")
+      expect(user.valid?).to be false
+    end
+  end 
 end
