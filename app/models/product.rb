@@ -1,5 +1,7 @@
 class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
+  validates :name, presence: true
+  validates :price, presence: true 
 
   scope :filter_by_water, -> (watering) {where("watering LIKE ?", "%#{watering}%")}
                                   #where column like query
@@ -22,6 +24,7 @@ class Product < ApplicationRecord
 
   scope :low_to_high, -> {order(price: :asc)}
   scope :high_to_low, -> {order(price: :desc)}
+  
   def self.ransackable_attributes(auth_object = nil)
     ["name", "pet_friendly"]
   end
