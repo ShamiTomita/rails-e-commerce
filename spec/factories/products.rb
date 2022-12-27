@@ -5,7 +5,7 @@ FactoryBot.define do
     light {"dumb light"}
     watering {"dumb water"}
     temp {"dumb temp"}
-    img {"dumb.png"}
+    img {"plants/dumb.png"}
     price {1.00}
   end
 end
