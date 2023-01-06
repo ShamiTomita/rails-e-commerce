@@ -39,6 +39,8 @@ gem "ransack"
 
 gem "stripe"
 
+gem 'stripe-ruby-mock', '~> 3.0.1', :require => 'stripe_mock'
+
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
 
