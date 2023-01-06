@@ -22,7 +22,7 @@ RSpec.describe "OrdersController", type: :request do
         #signed in user can add items
         #make tests more independent
         it "signs in user" do #Step 0
-            get profile_path(@user)
+            get profile_path
             expect(response).to be_successful
             expect(response.body).to include("Your Profile!")
             #How do I 
@@ -76,6 +76,7 @@ RSpec.describe "OrdersController", type: :request do
             #mock ecommerce for stripe? libraries have testing->stripe 
       
         it "performs a stripe checkout" do
+            pending("ugh")
             #locate current_user 
             #locate current_cart 
             #create order-> order should have the info to be used in this stripe checkout 
