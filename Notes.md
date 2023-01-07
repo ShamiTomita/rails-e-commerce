@@ -7,3 +7,11 @@ Turbo Drive: accelerates links and form submissions by negating the need for ful
 Turbo Frames: decompose pages into independent contexts, which scope navigation and can be lazily loaded
 
 Turbo Streams: deliver page changes over WebSocket SSE, or in response to form submissions using just HTML and CRUD like actions  
+
+
+/////// 
+
+Admin Dashboard: 
+Have to figure out a way to easily create an admin, maybe through a mailer?
+
+Admin Dashboard should have all the products, a list of users, a list of orders, and graphs for orders!
