@@ -1,19 +1,14 @@
 <div class="m-4 w-full flex flex-row justify-center">
   <div class="m-8">
-    <% if @order.status != "not_ordered" %>
-    <strong><h1>CONFRIMATION OF YOUR ORDER</h1></strong>
-    <div class="p-8 justify-center">
-    <%= render "orders/confirm", :order=>@order%>
-    </div>
-    <%else%>
+ 
     <strong><h1>Pending Order </h1></strong>
     <div class="p-8 justify-center">
-    <%= render "orders/confirm", :order=>@order%>
+    <%= render "checkout" %>
     </div>
 
     <div>
-      <strong><%= button_to "Finalize Order", ordered_path(@order), class:"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"%></strong>
+      <strong><%#= button_to "Finalize Order", ordered_path(@order), class:"bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"%></strong>
     </div>
-    <%end%>
+
   </div>
 </div>
