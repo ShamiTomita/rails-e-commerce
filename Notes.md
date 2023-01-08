@@ -15,3 +15,11 @@ Admin Dashboard:
 Have to figure out a way to easily create an admin, maybe through a mailer?
 
 Admin Dashboard should have all the products, a list of users, a list of orders, and graphs for orders!
+
+///////
+Jan 8th
+Where are? 
+Well routes aren't very restful at least for checkouts so will brush up on routing first 
+And From there, the current issues for this project are:
+Fixing Routes for Checkout, will probably involve/include changes to the way orders, carts, line items, and order items interact 
+Once that is straightened out, testing will be a lot easier 
