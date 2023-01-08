@@ -1,11 +1,6 @@
 class OrdersController < ApplicationController
 
-  def finalized(order)
-    order.total = @current_cart.sub_total
-    order.status = 1
-    order.save
-    @current_cart.destroy
-  end
+
 
 
   def index
@@ -64,6 +59,11 @@ class OrdersController < ApplicationController
       current_user.stripe_id = @customer.id
       current_user.save
     end
+
+    order.total = @current_cart.sub_total
+    order.status = 1
+    order.save
+
     items = order.order_items.map{|item| {
       price: Stripe::Product.retrieve(item.product.stripe_id).default_price,
       quantity: item.quantity
@@ -76,11 +76,12 @@ class OrdersController < ApplicationController
        success_url: root_url + "success?session_id={CHECKOUT_SESSION_ID}",
        cancel_url: root_url,
      })
-     finalized(order)
+     
      redirect_to @session.url, allow_other_host: true
   end
 
   def success
+    @current_cart.destroy
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @customer = Stripe::Customer.retrieve(session.customer)
   end
