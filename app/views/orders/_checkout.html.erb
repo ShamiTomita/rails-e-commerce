@@ -8,8 +8,9 @@
 
         <div class="h-80 border-8 border-sky-200 overflow-scroll">
           <% @order.order_items.each do |item|%>
-          
-            <%= render "order_items/order_item", order_item: item %>
+          <div class="border-8 border-green-100 h-fit p-3 bg-zinc-50">
+              <%= render "order_items/order_item" , order_item: item %>
+          </div>
           
           <%end%>
         </div>
