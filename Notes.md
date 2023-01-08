@@ -23,3 +23,8 @@ Well routes aren't very restful at least for checkouts so will brush up on routi
 And From there, the current issues for this project are:
 Fixing Routes for Checkout, will probably involve/include changes to the way orders, carts, line items, and order items interact 
 Once that is straightened out, testing will be a lot easier 
+....
+Ok so fixing routes was actually pretty easy and things seem more streamlined
+ Next up I'd like to crack open the admin dashboard 
+ so admins when they login should be sent to the admin dashboard first 
+ the dashboard will need to be modular
