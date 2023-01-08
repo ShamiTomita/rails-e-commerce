@@ -1,18 +1,5 @@
 class OrdersController < ApplicationController
 
-  def checkout
-    @order = Order.find(params[:id])
-    @user = current_user
-    if @order.order_items.empty?
-      redirect_to products_path
-    end
-  end
-
-  def confrim
-    @order = Order.find(params[:id])
-    redirect_to root_path
-  end
-
   def finalized(order)
     order.total = @current_cart.sub_total
     order.status = 1
@@ -20,14 +7,6 @@ class OrdersController < ApplicationController
     @current_cart.destroy
   end
 
-  def shipping
-    @user = @current_user
-    @order = Order.find(params[:id])
-  end
-
-  def checkout_item
-    @item = LineItem.find(params[:id])
-  end
 
   def index
     @orders = Order.all
@@ -35,6 +14,10 @@ class OrdersController < ApplicationController
 
   def show
     @order = Order.find(params[:id])
+    @user = current_user
+    if @order.order_items.empty?
+      redirect_to products_path
+    end
   end
 
   def new
@@ -61,7 +44,7 @@ class OrdersController < ApplicationController
               )
           end
         end
-      redirect_to checkout_path(@order)
+      redirect_to order_path(@order)
     end
   end
 
@@ -100,7 +83,6 @@ class OrdersController < ApplicationController
   def success
     session = Stripe::Checkout::Session.retrieve(params[:session_id])
     @customer = Stripe::Customer.retrieve(session.customer)
-
   end
 
 
