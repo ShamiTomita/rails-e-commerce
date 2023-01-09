@@ -1,4 +1,20 @@
 <div>
   <h1 class="font-bold text-4xl">Admin#index</h1>
   <p>Find me in app/views/admin/index.html.erb</p>
+  <% @products.each do |product| %>
+    <%= product.name %>
+  <%end%>
+
+  <% @customers.each do |user| %>
+  <div>
+    <h4><strong>User:</strong><%= user.email %></h4>
+    <h4><strong>Orders:</strong><%= user.orders.count%></h4>
+    <% user.orders.each do |order|%>
+      <%@order = order%>
+      <div>
+        <%= render order, :order => @order%>
+      </div>
+    <%end%>
+  <%end%>
+  </div>
 </div>
