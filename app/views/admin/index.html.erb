@@ -12,23 +12,36 @@
       <td><%= product.name %></td>
       <td><%=product.price%></td>
       <td>
-        #Here should be the amount of orders, and the quantity, in which these products have been a part of
+        <!--#Here should be the amount of orders, and the quantity, in which these products have been a part of -->
       </td>
     </tr>
     <%end%>
   </table>
  
 
-  <% @customers.each do |user| %>
+
   <div>
-    <h4><strong>User:</strong><%= user.email %></h4>
-    <h4><strong>Orders:</strong><%= user.orders.count%></h4>
-    <% user.orders.each do |order|%>
-      <%@order = order%>
-      <div>
-        <%= render order, :order => @order%>
-      </div>
-    <%end%>
-  <%end%>
+    <table>
+      <tr>
+        <th>User</hd>
+        <th>Order Count</th>
+      </tr>
+      <% @customers.each do |user| %>
+      <tr>
+        <td>
+          <h4><strong>User:</strong>
+            <%= user.email %>
+          </h4>
+        </td>
+        <td>
+          <h4><strong>Orders:</strong>
+            <%= user.orders.count%>
+          </h4>
+        </td>
+      </tr>
+      <%end%>
+    </table>
+   
+    
   </div>
 </div>
