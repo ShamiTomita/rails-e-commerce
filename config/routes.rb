@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
-  get 'admin/index'
-  get 'admin/products'
-  get 'admin/orders'
-  get 'admin/users'
+  authenticated :user, -> (user) {user.admin?} do 
+    get 'admin', to: 'admin#index'
+    get 'admin/products'
+    get 'admin/orders'
+    get 'admin/users'
+  end 
   resources :order_items
   get 'carts/:id' => "carts#show", as: "cart"
   delete 'carts/:id' => "carts#destroy"
