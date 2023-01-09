@@ -28,3 +28,14 @@ Ok so fixing routes was actually pretty easy and things seem more streamlined
  Next up I'd like to crack open the admin dashboard 
  so admins when they login should be sent to the admin dashboard first 
  the dashboard will need to be modular
+
+
+////////// Jan 9th 
+Admin Dashboard -> so now we want to get more information out of our database 
+
+Products:
+1. find total times ordered and amounts per order
+2. find total profit, average order price 
+
+User + Orders:
+1. find total spent, top product, average order amount 
