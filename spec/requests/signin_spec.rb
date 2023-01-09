@@ -3,6 +3,7 @@ require "rails_helper"
 describe "User log in", type: :system do
   before do
     @user = create :user
+    @product = create :product
     visit new_user_session_path
   end
 
@@ -11,9 +12,9 @@ describe "User log in", type: :system do
     fill_in "user_password", with: @user.password
     click_button "Log in"
 
-    expect(page).to have_text "Welcome back"
+    expect(page).to have_text "Signed in successfully."
     find('#user-menu-button').click
-    expect(page).to have_link "Sign out"
+    expect(page).to have_link "Logout"
     expect(page).to have_current_path root_path
   end
 
