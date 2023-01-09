@@ -1,9 +1,23 @@
 <div>
   <h1 class="font-bold text-4xl">Admin#index</h1>
   <p>Find me in app/views/admin/index.html.erb</p>
-  <% @products.each do |product| %>
-    <%= product.name %>
-  <%end%>
+  <table>
+    <tr>
+      <th>Product</th>
+      <th>Price</th>
+      <th>Ordered</th>
+    </tr>
+    <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%=product.price%></td>
+      <td>
+        #Here should be the amount of orders, and the quantity, in which these products have been a part of
+      </td>
+    </tr>
+    <%end%>
+  </table>
+ 
 
   <% @customers.each do |user| %>
   <div>
