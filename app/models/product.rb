@@ -1,5 +1,8 @@
 class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
+  has_many :order_items
+  has_many :orders, through: :order_items
+
   validates :name, presence: true
   validates :price, presence: true 
 
@@ -12,8 +15,9 @@ class Product < ApplicationRecord
   scope :filter_light, -> (light) {where("light LIKE ?", "%#{light}")}
   
   scope :lowest_price, -> {order(price: :asc)}
-  
+
   scope :highest_price, -> {order(price: :desc)}
+
   #****TO DO *****#
 
   #scope to find the most popular product
@@ -31,9 +35,26 @@ class Product < ApplicationRecord
   #scope :filter_by_med_light, -> {select {|p| p.med_light === true}}
   #scope :filter_by_high_light, -> {select {|p| p.high_light === true}}
 
-  scope :low_to_high, -> {order(price: :asc)}
-  scope :high_to_low, -> {order(price: :desc)}
+  scope :order_timeline, -> {includes(:orders).where(orders:{created_at: :asc})}
+
+  def cummulative_units_sold
+    array = []
+    self.order_items.each do |item|
+      if item.quantity != nil 
+        array.push(item.quantity)
+      end 
+    end 
+    array.reduce(0){|sum, num| sum+num}
+  end
   
+  def order_timeline 
+    #uhhhhhhhh what
+  end 
+
+  def cummulative_amount_made 
+    (self.cummulative_units_sold * self.price).to_f
+  end 
+
   def self.ransackable_attributes(auth_object = nil)
     ["name", "pet_friendly"]
   end

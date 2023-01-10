@@ -2,6 +2,7 @@ class Order < ApplicationRecord
   belongs_to :user
   belongs_to :cart
   has_many :order_items
+
   enum status: [:not_ordered, :order_submitted, :order_in_progress, :order_in_transit, :order_completed]
   #TO DO 
   #scope for highest price order
@@ -9,6 +10,7 @@ class Order < ApplicationRecord
   validates :user_id, presence: true 
   validates :cart_id, presence: true
   
+  scope :chronological, -> {order(created_at: :asc)}
   def shipping_address
     if !!self.city
       return (self.street_address + " " + self.city + " " + self.state + " " + self.zipcode)
