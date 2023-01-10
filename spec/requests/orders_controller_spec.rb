@@ -4,50 +4,66 @@ require 'stripe_mock'
 #Checkout Placing an order
 #test doubles 
 
-RSpec.describe "OrdersController", type: :request do 
+RSpec.describe "OrdersController", type: :system do
     let (:cart) {create(:cart)}
+    let (:line_item) {create(:line_item)}
     let (:product) {create(:product)}
-    let (:item) {create(:line_item)}
-    let (:order) {create(:order)}
-
     let(:stripe_helper) { StripeMock.create_test_helper }
     before { StripeMock.start }
     after { StripeMock.stop }
 
     describe "Checkout Setup" do 
         before do 
-            @user = create :user
-            sign_in @user  
+            login_as(create(:user))
+            @current_cart = cart
+            create(:product)
+            visit products_path
         end 
         #signed in user can add items
         #make tests more independent
         it "signs in user" do #Step 0
-            get profile_path
-            expect(response).to be_successful
-            expect(response.body).to include("Your Profile!")
-            #How do I 
+            find('#user-menu-button').click
+            expect(page).to have_content("Your Profile")
         end
         #add more detail if its the main product 
         #bulletted list 
-
         it "assigns a cart to the session" do 
-            pending("getting to it")
-            #check if there is an active, valid cart to the session
-            #check if it is connected to user
+            expect(@current_cart).to eq(cart)
         end 
 
+        it "shows the product page with products" do 
+            expect(page).to have_text("Shop Plants!")
+            expect(page).to have_text("Add to cart")
+        end 
         it "allows for adding items to cart" do 
-            pending("getting to it")
+            cart.line_items.push(line_item)
+            expect(cart.line_items).to include(line_item)
+            expect(cart.line_items.length).to eq(1)
+            expect(cart.sub_total).to eq(line_item.total_price)
+        end 
+        it "allows for checkout" do 
+            cart.line_items.push(line_item)
+            find("#cart-menu-button").click 
+            expect(page).to have_content("#{line_item.total_price}")
+            expect(page).to have_content("Checkout")
         end 
 
     end 
     describe "Get Checkout" do 
-        before do 
-            @user = create :user
-            sign_in @user  
+        before do
+        
         end 
         it "successfully loads checkout page" do 
-            pending("getting to it")
+            user = create(:user)
+            sign_in user
+
+            order = create(:order, user_id:user.id, cart_id:cart.id)
+            order_item = create(:order_item, product_id:product.id, order_id:order.id, line_item_id:line_item.id, quantity:1)
+            order.order_items.push(order_item)
+
+            visit "/orders/#{order.id}"
+            expect(page).to have_content("Pending Order")
+            expect(page).to have_content("#{order_item.total_price}")
             #check if cart and order match up (line_items/order_items, totals)
             #check if all shipping info is entered correctly 
         end 
