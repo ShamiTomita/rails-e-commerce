@@ -11,4 +11,8 @@ RSpec.describe Product, type: :model do
             expect(plant.valid?).to be false 
         end  
     end 
+
+    describe "scopes" do 
+        #makes sure the scope is working properly, not that its showing up... not the right test!
+    end 
 end

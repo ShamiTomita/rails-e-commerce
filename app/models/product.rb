@@ -15,7 +15,7 @@ class Product < ApplicationRecord
 
   #scope to find the most popular product
   #scope to find the least popular (should these be ranges?)
-
+  
   #****TO DO *****#
   #scope :filter_by_med_water, -> {select {|p| p.med_water === true}}
   #scope :filter_by_high_water, -> {select {|p| p.high_water === true}}
