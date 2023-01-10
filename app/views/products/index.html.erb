@@ -12,11 +12,11 @@
       <form action="/products" method="GET" data-turbo="false">
       <select name="filter" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-64 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" onchange="this.form.submit()">
         <option value="">Choose A Filter</option>
+        <option value="low_price"  <%= "selected" if session[:filter] == "low_price" %>> Sort Lowest Price</option>
+        <option value="high_price"  <%= "selected" if session[:filter] == "high_price" %>> Sort Highest Price</option>
         <option value="water" <%= "selected" if session[:filter] == "water" %>> Water Maintenance</option>
         <option value="light" <%= "selected" if session[:filter] == "light" %>> Light Maintenance</option>
         <option value="temp"  <%= "selected" if session[:filter] == "temp" %>> Temperature Maintenance</option>
-        <option value="low_price"  <%= "selected" if session[:filter] == "low_price" %>> Sort Lowest Price</option>
-        <option value="high_price"  <%= "selected" if session[:filter] == "high_price" %>> Sort Highest Price</option>
       </select>
       <% if session[:filter] == '' %>
         <%=@products = Product.all%>
