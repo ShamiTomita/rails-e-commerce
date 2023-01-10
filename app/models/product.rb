@@ -10,7 +10,10 @@ class Product < ApplicationRecord
   scope :filter_by_temp, -> (temp) {where("temp LIKE ?", "%#{temp}%")}
 
   scope :filter_light, -> (light) {where("light LIKE ?", "%#{light}")}
-
+  
+  scope :lowest_price, -> {order(price: :asc)}
+  
+  scope :highest_price, -> {order(price: :desc)}
   #****TO DO *****#
 
   #scope to find the most popular product

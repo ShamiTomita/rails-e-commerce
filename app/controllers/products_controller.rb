@@ -31,7 +31,12 @@ class ProductsController < ApplicationController
         @products = Product.all.filter_by_temp("85")
       elsif session[:filter_option] == "high"
         @products = Product.all.filter_by_temp("90")
-      end  
+      end 
+    ############  
+    elsif session[:filter] == "low_price"
+      @products = Product.all.lowest_price
+    elsif session[:filter] == "high_price"
+      @products = Product.all.highest_price  
     else 
       @products = Product.all 
     end 

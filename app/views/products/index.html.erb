@@ -15,6 +15,8 @@
         <option value="water" <%= "selected" if session[:filter] == "water" %>> Water Maintenance</option>
         <option value="light" <%= "selected" if session[:filter] == "light" %>> Light Maintenance</option>
         <option value="temp"  <%= "selected" if session[:filter] == "temp" %>> Temperature Maintenance</option>
+        <option value="low_price"  <%= "selected" if session[:filter] == "low_price" %>> Sort Lowest Price</option>
+        <option value="high_price"  <%= "selected" if session[:filter] == "high_price" %>> Sort Highest Price</option>
       </select>
       <% if session[:filter] == '' %>
         <%=@products = Product.all%>
