@@ -6,23 +6,24 @@ require 'stripe_mock'
 
 RSpec.describe "checkout", type: :system do
     #should I do all set up in here first as in create user, sign in, within a before_block???
-    let (:cart) {create(:cart)}
-    let (:line_item) {create(:line_item)}
-    let (:product) {create(:product)}
+    let(:cart) {create(:cart)}
+    let!(:product) {create(:product)} ###removing this line results in an "undefined local variable"
+    let(:line_item) {create(:line_item)}
     let(:stripe_helper) { StripeMock.create_test_helper }
-    before { StripeMock.start }
-    after { StripeMock.stop }
+    before{ StripeMock.start }
+    after{ StripeMock.stop }
 
     describe "Checkout Setup" do 
-        before do 
+        before(:each) do 
             login_as(create(:user))
-            @current_cart = cart
-            create(:product)
+            @current_cart = cart #i guess this should be the before action:current_cart in the application_controller?? I should test that
+            #### my tests seem to only pass when this is here even though I already have it definied above
+            ####removing the above line seems to remove the product from the products/index
             visit products_path
         end 
         #signed in user can add items
         #make tests more independent
-        it "signs in user" do #Step 0
+        it "check for signed in user" do #Step 0
             find('#user-menu-button').click
             expect(page).to have_content("Your Profile")
         end
@@ -33,14 +34,15 @@ RSpec.describe "checkout", type: :system do
         end 
 
         it "shows the product page with products" do 
+            #product 
             expect(page).to have_text("Shop Plants!")
             expect(page).to have_text("Add to cart")
         end 
         it "allows for adding items to cart" do 
             cart.line_items.push(line_item)
-            expect(cart.line_items).to include(line_item)
-            expect(cart.line_items.length).to eq(1)
-            expect(cart.sub_total).to eq(line_item.total_price)
+            expect(@current_cart.line_items).to include(line_item)
+            expect(@current_cart.line_items.length).to eq(1)
+            expect(@current_cart.sub_total).to eq(line_item.total_price)
         end 
         it "allows for checkout" do 
             cart.line_items.push(line_item)
