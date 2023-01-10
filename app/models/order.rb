@@ -3,7 +3,9 @@ class Order < ApplicationRecord
   belongs_to :cart
   has_many :order_items
   enum status: [:not_ordered, :order_submitted, :order_in_progress, :order_in_transit, :order_completed]
-
+  #TO DO 
+  #scope for highest price order
+  #scope for lowest price order 
   validates :user_id, presence: true 
   validates :cart_id, presence: true
   

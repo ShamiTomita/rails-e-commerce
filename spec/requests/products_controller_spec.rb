@@ -1,6 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "ProductsController", type: :request do 
+    #actually this is my filter, i dont know what to call these
     describe "GET /products" do
         it "successfully loads the products index path" do  
             get products_path

@@ -5,6 +5,7 @@ require 'stripe_mock'
 #test doubles 
 
 RSpec.describe "checkout", type: :system do
+    #should I do all set up in here first as in create user, sign in, within a before_block???
     let (:cart) {create(:cart)}
     let (:line_item) {create(:line_item)}
     let (:product) {create(:product)}
@@ -65,7 +66,7 @@ RSpec.describe "checkout", type: :system do
             expect(page).to have_content("#{@order_item.total_price}")
             expect(page).to have_content("Total Price: #{cart.sub_total}")
             expect(page).to have_no_content "Your cart"
-        end 
+        end
             #check if Stripe Params is ok 
             #check if Stripe request is accepted 
             #allow(Stripe::Checkout:).to receive(:checkout).with(params).and_return(success)
@@ -116,6 +117,15 @@ RSpec.describe "checkout", type: :system do
             #})
             expect(Stripe::Checkout::Session).to have_received(:create).with(hash_including(customer: "1"))
         end
+
+        it "adds the submitted order to profile page" do 
+            @order.status = "order_submitted"
+            @order.save 
+
+            visit profile_path
+            expect(page).to have_content("Your Profile!")
+            expect(page).to have_content("Ordered #{@order.created_at.strftime("%Y-%m-%d")}")
+        end 
 
     end 
 end 
