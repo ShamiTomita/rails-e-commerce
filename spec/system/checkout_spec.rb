@@ -4,7 +4,7 @@ require 'stripe_mock'
 #Checkout Placing an order
 #test doubles 
 
-RSpec.describe "OrdersController", type: :system do
+RSpec.describe "checkout", type: :system do
     let (:cart) {create(:cart)}
     let (:line_item) {create(:line_item)}
     let (:product) {create(:product)}
@@ -50,28 +50,22 @@ RSpec.describe "OrdersController", type: :system do
 
     end 
     describe "Get Checkout" do 
-        before do
-        
-        end 
-        it "successfully loads checkout page" do 
+        before(:each) do
             user = create(:user)
             sign_in user
-
-            order = create(:order, user_id:user.id, cart_id:cart.id)
-            order_item = create(:order_item, product_id:product.id, order_id:order.id, line_item_id:line_item.id, quantity:1)
-            order.order_items.push(order_item)
-
-            visit "/orders/#{order.id}"
-            expect(page).to have_content("Pending Order")
-            expect(page).to have_content("#{order_item.quantity}")
-            expect(page).to have_content("#{order_item.total_price}")
-            expect(page).to have_content("Total Price: #{cart.sub_total}")
-            #check if cart and order match up (line_items/order_items, totals)
-            #check if all shipping info is entered correctly 
+            @order = create(:order, user_id:user.id, cart_id:cart.id)
+            @order_item = create(:order_item, product_id:product.id, order_id:@order.id, line_item_id:line_item.id, quantity:1)
+            @order.order_items.push(@order_item)
         end 
 
-       
-            
+        it "successfully loads checkout page" do 
+            visit "/orders/#{@order.id}"
+            expect(page).to have_content("Pending Order")
+            expect(page).to have_content("#{@order_item.quantity}")
+            expect(page).to have_content("#{@order_item.total_price}")
+            expect(page).to have_content("Total Price: #{cart.sub_total}")
+            expect(page).to have_no_content "Your cart"
+        end 
             #check if Stripe Params is ok 
             #check if Stripe request is accepted 
             #allow(Stripe::Checkout:).to receive(:checkout).with(params).and_return(success)
@@ -92,7 +86,6 @@ RSpec.describe "OrdersController", type: :system do
             #expect(response.body).to contain("Thank you for your purchase!")
 
             #mock ecommerce for stripe? libraries have testing->stripe 
-      
         it "performs a stripe checkout" do
             pending("ugh")
             #locate current_user 
@@ -123,5 +116,6 @@ RSpec.describe "OrdersController", type: :system do
             #})
             expect(Stripe::Checkout::Session).to have_received(:create).with(hash_including(customer: "1"))
         end
+
     end 
 end 
