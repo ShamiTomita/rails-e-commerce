@@ -18,4 +18,12 @@ class Order < ApplicationRecord
   def name
     return (self.first_name + " " + self.last_name)
   end 
+
+   def sub_total
+    sum = 0
+    self.order_items.each do |line_item|
+      sum+= order_item.total_price
+    end
+    return sum
+  end
 end

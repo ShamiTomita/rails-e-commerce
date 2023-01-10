@@ -63,7 +63,9 @@ RSpec.describe "OrdersController", type: :system do
 
             visit "/orders/#{order.id}"
             expect(page).to have_content("Pending Order")
+            expect(page).to have_content("#{order_item.quantity}")
             expect(page).to have_content("#{order_item.total_price}")
+            expect(page).to have_content("Total Price: #{cart.sub_total}")
             #check if cart and order match up (line_items/order_items, totals)
             #check if all shipping info is entered correctly 
         end 
