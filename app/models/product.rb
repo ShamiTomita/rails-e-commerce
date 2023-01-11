@@ -1,7 +1,7 @@
 class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :order_items
-  has_many :orders, through: :order_items
+  has_many :orders, -> { order 'created_at'},  through: :order_items
 
   validates :name, presence: true
   validates :price, presence: true 
@@ -35,7 +35,6 @@ class Product < ApplicationRecord
   #scope :filter_by_med_light, -> {select {|p| p.med_light === true}}
   #scope :filter_by_high_light, -> {select {|p| p.high_light === true}}
 
-  scope :order_timeline, -> {includes(:orders).where(orders:{created_at: :asc})}
 
   def cummulative_units_sold
     array = []
@@ -46,10 +45,6 @@ class Product < ApplicationRecord
     end 
     array.reduce(0){|sum, num| sum+num}
   end
-  
-  def order_timeline 
-    #uhhhhhhhh what
-  end 
 
   def cummulative_amount_made 
     (self.cummulative_units_sold * self.price).to_f
