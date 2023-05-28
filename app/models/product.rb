@@ -2,7 +2,8 @@ class Product < ApplicationRecord
   has_many :line_items, dependent: :destroy
   has_many :order_items
   has_many :orders, -> { order 'created_at'},  through: :order_items
-
+  has_many :contacts 
+  
   validates :name, presence: true
   validates :price, presence: true 
 

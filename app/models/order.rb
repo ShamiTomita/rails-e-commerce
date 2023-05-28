@@ -3,7 +3,8 @@ class Order < ApplicationRecord
   belongs_to :cart
   has_many :order_items
   has_many :products, through: :order_items
-
+  has_many :contacts 
+  
   enum status: [:not_ordered, :order_submitted, :order_in_progress, :order_in_transit, :order_completed]
   #TO DO 
   #scope for highest price order
