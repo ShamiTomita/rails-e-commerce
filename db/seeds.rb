@@ -26,3 +26,41 @@ Product.create!(name:"Birds of Paradise", price:120.00,  description:"Birds of P
 ", light:"Lots of bright, direct sunlight helps this plant to flourish; a sunroom or outdoors is best", watering:"Keep soil moist spring through fall; in the winter, allow top 2' to dry out before watering", temp:"60-80", img:"plants/birds_of_paradise.png", pet_friendly:false)
 Product.create!(name:"Bromeliad", price:88.00, description:"The Vriesea Intenso Orange, or flaming sword houseplant, is one of the showiest bromeliads known for its bright orange spike, lasting as long as 3–6 months. It is a colorful, easy indoor plant that will brighten up any space. Added bonus, it's non-toxic, making it safe to keep around curious pets.", light:"Thrives in bright indirect light, but can tolerate a few hours of direct sun.", watering:"Each week, add water to the leaf cups (water tank), the center area created by overlapping leaves. As water cups tend to collect debris and insects, empty out each week and add new water. Bromeliads can be sensitive to hard tap water. Try using filtered water or leaving water out overnight before using. For best results, mist weekly and provide an additional source of humidity like a pebble tray or humidifier.", temp:"65-90", img:"plants/bromeliad.jpg", pet_friendly:true)
 Product.create!(name:"Button Fern", price:74, description:"Despite the Button Fern's appearance, with adorable button-like leaflets attached to delicate stems, it is a tough little fern: On the cliffs of its native New Zealand, it can withstand a variety of temperatures and humidity. This plant is pet-friendly!", light:"Thrives in bright indirect light. Not suited for low light conditions or direct sun.", watering:"Water every 1-2 weeks allowing soil to dry out halfway between waterings. Expect to water more oftern in brighter light and less often in lower light. This plant can benefit from higher humidity but can tolerate normal room humidity levels.", temp:"65-90", img:"plants/button_fern.jpg")
+Stripe.api_key = Rails.application.credentials.dig(:stripe, :secret_key)
+def create_products
+      Product.all.each do |product|
+        if !product.stripe_id
+          price = product.price*100
+          p = Stripe::Product.create(
+          {
+            name: product.name,
+            default_price_data: {
+              unit_amount: price.to_f.to_i,
+              currency: 'usd',
+            },
+            images:[product.img],
+            description: product.description,
+            expand: ['default_price'],
+          },
+          )
+          product.stripe_id = p.id
+          product.save
+        end
+      end
+    end
+
+    def create_prices
+      Product.all.each do |product|
+        if product.stripe_id
+          price = product.price*100
+          Stripe::Price.create({
+            unit_amount: price.to_f.to_i,
+            currency: 'usd',
+            product: product.stripe_id,
+            })
+        end
+      end
+    end
+
+    create_products
+    create_prices
