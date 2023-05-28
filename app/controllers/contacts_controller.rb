@@ -8,7 +8,7 @@ class ContactsController < ApplicationController
     @contact = Contact.new(contact_params)
 
     if @contact.save
-      redirect_to root_path
+      redirect_to root_path, notice: "Thank you for your message!"
     else
       render :new
     end

@@ -1,4 +1,4 @@
-<%= form_for(@contact) do |f| %>
+<%= form_for(@contact, data: {turbo: false}) do |f| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">
       <h3><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.text_field :email %>
+    <%= f.email_field :email %>
   </div>
   <div class="field">
     <%= f.label :message %><br />
