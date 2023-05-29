@@ -27,7 +27,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_28_214811) do
     t.datetime "updated_at", null: false
     t.integer "issue_type"
     t.integer "user_id"
-    t.integer "products_id"
+    t.integer "product_id"
     t.integer "order_id"
   end
 
