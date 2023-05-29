@@ -65,9 +65,13 @@
         <% @contacts.each do |contact| %>
         <tr class="hover:bg-sky-100">
           <td class="hover:bg-sky-200 border border-emerald-500 px-4 py-2 text-emerald-600 font-medium" >
-            <h4><strong>Contact from <%= contact.name %>, <%=contact.created_at%></strong>
+            <h4><strong>Contact from <%= contact.name %> Sent: <%=contact.created_at%></strong>
               <p>Associated Account: <%= contact.user_id? ? contact.email : "No account"%></p>
+              <p>Issue Type: <%=contact.issue_type%> </p>
+              <p><%= contact.product_id? ? "Product - #{contact.product.name}" : "" %><p>
+              <p>Message: <br>
               <%= contact.message %>
+              </p>
             </h4>
           </td>
         </tr>

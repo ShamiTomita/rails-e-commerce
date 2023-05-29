@@ -9,7 +9,7 @@ class ContactsController < ApplicationController
     @contact.user_id = User.find_by(email: contact_params[:email])&.id
 
     if params[:product_name].length > 0
-      p = Product.all.find {|prod| prod.name.downcase.include?(params[:product_issue].downcase) }
+      p = Product.all.find {|prod| prod.name.downcase.include?(params[:product_name].downcase) }
       @contact.product_id = p.id
     end 
 
