@@ -26,28 +26,28 @@
         <%= f.select :issue_type, options_for_select(Contact.issue_types.map {|key, value| [key.titleize, Contact.issue_types.key(value)]}, @contact.issue_type), {allow_black:true}, {data: {showhide_target: "input", action: "change->showhide#toggle"}}%>
       </div>
     
-      <div data-showhide-target="product_issue" hidden="">
-        <%= label_tag :product_issue %>
+      <div class="field" data-showhide-target="product_issue" hidden="">
+        <%= label_tag :product_name%><br />
         <%= text_field_tag :product_issue%>
       </div>
 
-      <div data-showhide-target="inquiry" hidden="">
-        <%= label_tag :inquiry %>
+      <div class="field" data-showhide-target="inquiry" hidden="">
+        <%= label_tag :inquiry %><br />
         <%= text_field_tag :inquiry %>
       </div>
 
-      <div data-showhide-target="billing" hidden="">
-        <%= label_tag :billing %>
+      <div class="field" data-showhide-target="billing" hidden="">
+        <%= label_tag :order_number %><br />
         <%= text_field_tag :billing %>
       </div>
 
-      <div data-showhide-target="order_issue" data-select-id="order_issue" hidden="">
-        <%= label_tag :order_issue %>
+      <div class="field" data-showhide-target="order_issue" data-select-id="order_issue" hidden="">
+        <%= label_tag :order_number %><br />
         <%= text_field_tag :order_issue %>
       </div>
 
-      <div data-showhide-target="account" data-select-id="account" hidden="">
-        <%= label_tag :account %>
+      <div class="field" data-showhide-target="account" data-select-id="account" hidden="">
+        <%= label_tag :account %><br />
         <%= text_field_tag :account %>
       </div>
     </div>
