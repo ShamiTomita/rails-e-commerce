@@ -1,4 +1,4 @@
-<%= form_for(@contact, data: {turbo: false}) do |f| %>
+<%= form_for(@contact) do |f| %>
   <% if @contact.errors.any? %>
     <div id="error_explanation">
       <h3><%= pluralize(@contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
@@ -11,23 +11,52 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
-  </div>
-  <div class="field">
-    <%= f.label :issue_type %><br />
-    <%= f.select :issue_type, options_for_select(Contact.issue_types.map {|key, value| [key.titleize, Contact.issue_types.key(value)]}, @contact.issue_type) %>
-  </div>
-  <div class="field">
-    <%= f.label :message %><br />
-    <%= f.text_area :message %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Send"%>
-  </div>
-<% end %>
+    <div class="field">
+      <%= f.label :name %><br />
+      <%= f.text_field :name %>
+    </div>
+    <div class="field">
+      <%= f.label :email %><br />
+      <%= f.email_field :email %>
+    </div>
+    
+    <div data-controller="showhide" data-showhide-show-if-value="product_issue" data-showhide-show-if-value="inquiry" data-showhide-show-if-value="billing" data-showhide-show-if-value="order_issue" data-showhide-show-if-value="account">
+      <div class="field">
+        <%= f.label :issue_type %><br />
+        <%= f.select :issue_type, options_for_select(Contact.issue_types.map {|key, value| [key.titleize, Contact.issue_types.key(value)]}, @contact.issue_type), {allow_black:true}, {data: {showhide_target: "input", action: "change->showhide#toggle"}}%>
+      </div>
+    
+      <div data-showhide-target="product_issue" hidden="">
+        <%= label_tag :product_issue %>
+        <%= text_field_tag :product_issue%>
+      </div>
+
+      <div data-showhide-target="inquiry" hidden="">
+        <%= label_tag :inquiry %>
+        <%= text_field_tag :inquiry %>
+      </div>
+
+      <div data-showhide-target="billing" hidden="">
+        <%= label_tag :billing %>
+        <%= text_field_tag :billing %>
+      </div>
+
+      <div data-showhide-target="order_issue" data-select-id="order_issue" hidden="">
+        <%= label_tag :order_issue %>
+        <%= text_field_tag :order_issue %>
+      </div>
+
+      <div data-showhide-target="account" data-select-id="account" hidden="">
+        <%= label_tag :account %>
+        <%= text_field_tag :account %>
+      </div>
+    </div>
+
+    <div class="field">
+      <%= f.label :message %><br />
+      <%= f.text_area :message %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Send"%>
+    </div>
+  <% end %>
