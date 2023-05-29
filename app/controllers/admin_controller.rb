@@ -3,6 +3,7 @@ class AdminController < ApplicationController
     @products = Product.all
     @customers = User.all.select {|user| user.role == "user"}
     @orders = Order.all
+    @contacts = Contact.all
   end
 
   def products

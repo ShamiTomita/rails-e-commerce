@@ -29,7 +29,7 @@
     <div class="w-fit h-fit min-w-10 shrink-0 rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
       <table class=" table-auto w-fit shrink-0">
         <tr>
-          <th class="px-4 py-2 text-emerald-600" >Usesr</hd>
+          <th class="px-4 py-2 text-emerald-600" >Usesr</th>
           <th class="px-4 py-2 text-emerald-600" >Order Count</th>
         </tr>
         <% @customers.each do |user| %>
@@ -54,4 +54,24 @@
       <%= area_chart Order.group_by_day(:created_at).count, xtitle: "Time", ytitle: "Orders"%>
     </div>
   </div>
+
+
+
+   <div class="w-fit h-fit min-w-10 shrink-0 rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
+      <table class=" table-auto w-fit shrink-0">
+        <tr>
+          <th class="px-4 py-2 text-emerald-600" >Messages</th>
+        </tr>
+        <% @contacts.each do |contact| %>
+        <tr class="hover:bg-sky-100">
+          <td class="hover:bg-sky-200 border border-emerald-500 px-4 py-2 text-emerald-600 font-medium" >
+            <h4><strong>Contact from <%= contact.name %>, <%=contact.created_at%></strong>
+              <p>Associated Account: <%= contact.user_id? ? contact.email : "No account"%></p>
+              <%= contact.message %>
+            </h4>
+          </td>
+        </tr>
+        <%end%>
+      </table>
+    </div>
 </div>
