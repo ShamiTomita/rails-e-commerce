@@ -3,7 +3,7 @@ class AdminController < ApplicationController
     @products = Product.all
     @customers = User.all.select {|user| user.role == "user"}
     @orders = Order.all
-    @contacts = Contact.all
+    @contacts = Contact.all.order(created_at: :desc)
   end
 
   def products

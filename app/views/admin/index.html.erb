@@ -1,7 +1,7 @@
 <div class="flex flex-col">
   <h1 class="font-bold text-4xl p-5">Admin Dashboard</h1>
   <div class="flex flex-row">
-    <div class="w-5/12 min-w-10 shrink-0 rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
+    <div class="w-1/4 p-10 bg-white">
       <table class=" table-auto w-fit shrink-0">
         <thead>
         <tr>
@@ -26,10 +26,10 @@
       </table>
     </div>
 
-    <div class="w-fit h-fit min-w-10 shrink-0 rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
+    <div class="w-fit h-fit min-w-10 shrink-0 overflow-hidden bg-white p-10">
       <table class=" table-auto w-fit shrink-0">
         <tr>
-          <th class="px-4 py-2 text-emerald-600" >Usesr</th>
+          <th class="px-4 py-2 text-emerald-600" >Usess</th>
           <th class="px-4 py-2 text-emerald-600" >Order Count</th>
         </tr>
         <% @customers.each do |user| %>
@@ -57,7 +57,7 @@
 
 
 
-   <div class="w-fit h-fit min-w-10 shrink-0 rounded-t-xl overflow-hidden bg-gradient-to-r from-emerald-50 to-teal-100 p-10">
+   <div class="w-fit h-fit min-w-10 overflow-hidden bg-white p-10">
       <table class=" table-auto w-fit shrink-0">
         <tr>
           <th class="px-4 py-2 text-emerald-600" >Messages</th>
@@ -65,7 +65,7 @@
         <% @contacts.each do |contact| %>
         <tr class="hover:bg-sky-100">
           <td class="hover:bg-sky-200 border border-emerald-500 px-4 py-2 text-emerald-600 font-medium" >
-            <h4><strong>Contact from <%= contact.name %> Sent: <%=contact.created_at%></strong>
+            <h4><strong>Contact from <%= contact.name %> Sent: <%=contact.created_at.strftime("%Y-%m-%d")%></strong>
               <p>Associated Account: <%= contact.user_id? ? contact.email : "No account"%></p>
               <p>Issue Type: <%=contact.issue_type%> </p>
               <p><%= contact.product_id? ? "Product - #{contact.product.name}" : "" %><p>
