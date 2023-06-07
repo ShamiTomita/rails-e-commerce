@@ -12,49 +12,49 @@
   <% end %>
 
     <div class="field">
-      <%= f.label :name, :class => "block text-gray-700 text-sm font-bold" %><br />
+      <%= f.label :name, :class => "block text-gray-700 text-sm font-bold" %>
       <%= f.text_field :name, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
     <div class="field">
-      <%= f.label :email, :class => "block text-gray-700 text-sm font-bold" %><br />
-      <%= f.email_field :email, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"  %>
+      <%= f.label :email, :class => "block text-gray-700 text-sm font-bold" %>
+      <%= f.email_field :email, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
     </div>
     
     <div data-controller="showhide" data-showhide-show-if-value="product_issue" data-showhide-show-if-value="inquiry" data-showhide-show-if-value="billing" data-showhide-show-if-value="order_issue" data-showhide-show-if-value="account">
       <div class="field">
-        <%= f.label :issue_type, :class => "block text-gray-700 text-sm font-bold" %><br />
-        <%= f.select :issue_type, options_for_select(Contact.issue_types.map {|key, value| [key.titleize, Contact.issue_types.key(value)]}, @contact.issue_type), {allow_black:true}, {data: {showhide_target: "input", action: "change->showhide#toggle"}}, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.label :issue_type, :class => "block text-gray-700 text-sm font-bold" %>
+        <%= f.select :issue_type, options_for_select(Contact.issue_types.map {|key, value| [key.titleize, Contact.issue_types.key(value)]}, @contact.issue_type), {allow_black:true}, {data: {showhide_target: "input", action: "change->showhide#toggle"}, class: "block appearance-none w-full bg-white border border-gray-400 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"}%>
       </div>
     
       <div class="field" data-showhide-target="product_issue" hidden="">
-        <%= label_tag :product_name, :class => "block text-gray-700 text-sm font-bold"%><br />
-        <%= text_field_tag :product_name, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.label :product_name, :class => "block text-gray-700 text-sm font-bold"%>
+        <%= text_field_tag :product_name, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"%>
       </div>
 
       <div class="field" data-showhide-target="inquiry" hidden="">
-        <%= label_tag :inquiry, :class => "block text-gray-700 text-sm font-bold" %><br />
-        <%= text_field_tag :inquiry, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+        <%= f.label :inquiry, :class => "block text-gray-700 text-sm font-bold"%>
+        <%= text_field_tag :inquiry, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"%>
       </div>
 
       <div class="field" data-showhide-target="billing" hidden="">
-        <%= label_tag :order_number, :class => "block text-gray-700 text-sm font-bold" %><br />
+        <%= f.label :order_number, :class => "block text-gray-700 text-sm font-bold" %>
         <%= text_field_tag :order_number, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
 
       <div class="field" data-showhide-target="order_issue" data-select-id="order_issue" hidden="">
-        <%= label_tag :order_number, :class => "block text-gray-700 text-sm font-bold" %><br />
+        <%= f.label :order_number, :class => "block text-gray-700 text-sm font-bold" %>
         <%= text_field_tag :order_number, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
 
       <div class="field" data-showhide-target="account" data-select-id="account" hidden="">
-        <%= label_tag :account, :class => "block text-gray-700 text-sm font-bold" %><br />
+        <%= f.label :account, :class => "block text-gray-700 text-sm font-bold" %>
         <%= text_field_tag :account, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
       </div>
     </div>
 
     <div class="field">
-      <%= f.label :message, :class => "block text-gray-700 text-sm font-bold" %><br />
-      <%= f.text_area :message, :class=> "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" %>
+      <%= f.label :message, :class => "block text-gray-700 text-sm font-bold" %>
+      <%= f.text_area :message %>
     </div>
     <div class="actions">
       <%= f.submit "Send"%>
